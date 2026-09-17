@@ -1,0 +1,93 @@
+@import "tailwindcss";
+
+:root {
+  --color-canvas: #f7f5f0;
+  --color-ink: #171717;
+  --color-brass: #b08d57;
+  --color-graphite: #6b6b6b;
+  --color-surface: #ffffff;
+  --color-border: #e6e2d8;
+}
+
+@theme inline {
+  --color-canvas: var(--color-canvas);
+  --color-ink: var(--color-ink);
+  --color-brass: var(--color-brass);
+  --color-graphite: var(--color-graphite);
+  --color-surface: var(--color-surface);
+  --color-border: var(--color-border);
+
+  --font-display: var(--font-playfair);
+  --font-body: var(--font-jakarta);
+
+  --radius-none: 0px;
+}
+
+body {
+  background: var(--color-canvas);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+}
+
+* {
+  border-radius: 0 !important;
+}
+
+@layer components {
+  .label-caps {
+    font-family: var(--font-body);
+    font-size: 11px;
+    font-weight: 600;
+    line-height: 16px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    background: var(--color-ink);
+    color: var(--color-surface);
+    border: 1px solid var(--color-ink);
+    padding: 16px 32px;
+    white-space: nowrap;
+    transition: border-color 0.2s ease, letter-spacing 0.2s ease;
+  }
+  .btn-primary:hover {
+    border-color: var(--color-brass);
+    letter-spacing: 0.02em;
+  }
+
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    background: transparent;
+    color: var(--color-ink);
+    border: 1px solid var(--color-ink);
+    padding: 16px 32px;
+    white-space: nowrap;
+    transition: background 0.2s ease, color 0.2s ease;
+  }
+  .btn-secondary:hover {
+    background: var(--color-ink);
+    color: var(--color-surface);
+  }
+
+  .link-arrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4em;
+    color: var(--color-ink);
+  }
+  .link-arrow span:last-child {
+    color: var(--color-brass);
+    transition: transform 0.2s ease;
+  }
+  .link-arrow:hover span:last-child {
+    transform: translateX(3px);
+  }
+}

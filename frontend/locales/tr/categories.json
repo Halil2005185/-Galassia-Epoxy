@@ -1,0 +1,77 @@
+{
+  "page": {
+    "eyebrow": "Katalog Cilt II • Editoryal Dizin",
+    "title": "Koleksiyonlar",
+    "description": "Mimari mekanlar ve özel koleksiyonerler için tasarlanmış, akışkan reçine simyası ve doğal keresteden oluşan dört seçkin koleksiyon.",
+    "archiveIndexLabel": "Arşiv Dizini",
+    "archiveIndexValue": "24 El Yapımı Eser",
+    "methodLabel": "Yöntem",
+    "methodValue": "Elde Dökülmüş",
+    "values": [
+      { "title": "Sadece Devrik Kereste", "body": "Yönetilen ormanlardan devrik kütükler ve yüzyıllık stoklar temin ederek her türün doğal morfolojisine saygı gösteriyoruz." },
+      { "title": "30 Günlük Yavaş Kürleme", "body": "Derin dökümlü bio-reçine, hem kabarcıksız berraklık hem de uzun ömürlü stabilite için sıcaklık kontrollü kürlemeden geçer." },
+      { "title": "Atölye Sertifikası", "body": "Her eser, seri numarası, atölye imzası ve köken bilgisiyle işlenmiş arşivlik çelik plaka sertifikasıyla birlikte gönderilir." }
+    ],
+    "ctaEyebrow": "Sipariş Danışmanlığı",
+    "ctaTitle": "Özel bir ölçü veya kendine özgü bir pigment damarı mı hayal ediyorsunuz?",
+    "ctaDescription": "Baş sanatçımız ve ahşap teknisyenlerimiz iç mimarlar, mimarlar ve özel müşterilerle doğrudan çalışır. Anında danışmanlık için mekan eskizlerinizi, boya örneklerinizi veya kereste tercihlerinizi gönderin.",
+    "requestLookbook": "Dijital Katalog İste",
+    "commissionSpecs": "Sipariş Detayları",
+    "breadcrumbCategories": "Kategoriler",
+    "piecesInCollection": "Bu Koleksiyondaki Parçalar"
+  },
+  "items": {
+    "dining-river-tables": {
+      "eyebrow": "Mimari Mobilya",
+      "plate": "Pafta N° 001",
+      "series": "Seri 01 / Anıtsal",
+      "title": "Nehir Yemek Masaları & Merkez Parçalar",
+      "description": "Sürdürülebilir kaynaklı canlı kenarlı zeytin ağacı, Fransız cevizi ve iç mekan ışığını yakalayan yarı saydam epoksi nehirlerle elde işlenmiş etkileyici yemek ve toplantı masaları.",
+      "specs": [
+        { "label": "Taban Yapısı", "value": "Karartılmış çelik, ham pirinç, mermer inceliğinde ahşap" },
+        { "label": "Yüzey Bitişi", "value": "Çizilmeye dayanıklı elmas kristal kaplama" },
+        { "label": "Özel Ölçü", "value": "4,0 metreye kadar özel uzunluklar" }
+      ],
+      "ctaLabel": "Nehir Masalarını Keşfedin (6 Parça)"
+    },
+    "serving-trays-boards": {
+      "eyebrow": "Mutfak Heykelleri",
+      "plate": "Pafta N° 002",
+      "series": "Seri 02 / Gastronomi",
+      "title": "Zanaatkâr Servis Tepsileri & Şarküteri Tahtaları",
+      "description": "Zengin doğal keresteyle eşleşen büyüleyici altın, zümrüt ve gece siyahı akışkan girdaplara sahip işlevsel mutfak sanatı. Her parça hem miras servis tahtası hem de masa üstü heykeli olarak işlev görür.",
+      "specs": [
+        { "label": "Sertifikasyon", "value": "%100 Toksik olmayan, gıdaya uygun reçine" },
+        { "label": "Donanım Detayı", "value": "Ergonomik masif döküm pirinç saplar" },
+        { "label": "Kişiselleştirme", "value": "Atölye lazer monogramı & tarih işareti" }
+      ],
+      "ctaLabel": "Servis Tepsilerini Keşfedin (8 Parça)"
+    },
+    "wall-art-geodes": {
+      "eyebrow": "Güzel Sanat Anıtları",
+      "plate": "Pafta N° 003",
+      "series": "Seri 03 / Yüksek Sanat",
+      "title": "Jeot & Göksel Reçine Duvar Panelleri",
+      "description": "Yarı değerli kuvars kristalleri, metalik pigmentler ve parıldayan altın tozuyla zenginleştirilmiş yüksek parlaklıkta reçine duvar sanatı. Doğrudan güneş ışığı ve iç mekan galeri alanlarıyla dinamik etkileşim için ayarlanmıştır.",
+      "specs": [
+        { "label": "Montaj Detayı", "value": "Gömülü alüminyum Fransız aski sistemi" },
+        { "label": "Malzeme & Mineraller", "value": "Dumanlı kuvars, mika pulları, 24k altın varak" },
+        { "label": "Küratöryel Ölçek", "value": "Tekli paneller veya modüler triptikler" }
+      ],
+      "ctaLabel": "Duvar Panellerini Keşfedin (5 Parça)"
+    },
+    "home-bar-accents": {
+      "eyebrow": "Dokunsal Yaşam Tarzı",
+      "plate": "Pafta N° 004",
+      "series": "Seri 04 / İç Mekan Heykelleri",
+      "title": "Özel Ev & Bar Dekor Aksesuarları",
+      "description": "Ham kenarlı bardak altlığı setleri, heykelsi kaplar, sommelier şarap sepetleri ve ince kehribar ile siyah altın damarlarla dökülmüş düzenleyicileri içeren zarif yaşam aksesuarları.",
+      "specs": [
+        { "label": "Çerçeve Kenarı", "value": "Elde alevlenmiş fırçalanmış bronz kenarlık" },
+        { "label": "Taban Koruması", "value": "Saf İspanyol merinos yünü keçe astar" },
+        { "label": "Ambalaj", "value": "Özel kabartmalı sunum kutusu" }
+      ],
+      "ctaLabel": "Dekor Aksesuarlarını Keşfedin (5 Parça)"
+    }
+  }
+}

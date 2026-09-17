@@ -1,0 +1,55 @@
+{
+  "hero": {
+    "eyebrow": "Atelier Commission & Editorial",
+    "title": "Where Liquid Art Meets Enduring Craftsmanship",
+    "subtitle": "Handcrafted epoxy resin and exotic hardwood masterpieces where every curve, vein, and reflection is uniquely shaped by our master artisans.",
+    "exploreCatalog": "Explore Catalog",
+    "inquireWhatsapp": "Inquire on WhatsApp",
+    "imageCaption": "Nebula River Dining Table in Aged Olive Wood",
+    "stats": [
+      { "value": "100%", "label": "Handmade" },
+      { "value": "Zero-VOC", "label": "Eco Resins" },
+      { "value": "1-of-1", "label": "Unique Veins" }
+    ]
+  },
+  "collections": {
+    "eyebrow": "Atelier Discipline",
+    "title": "Curated Collections",
+    "description": "Distinct portfolios defined by mineral pigmentation, deep resin casting depth, and hand-rubbed botanical finishes."
+  },
+  "masterworks": {
+    "eyebrow": "Exhibition Showcase",
+    "title": "Masterwork Creations",
+    "description": "One-of-a-kind art pieces crafted in limited studio runs. Reserved for collectors and architectural spaces."
+  },
+  "philosophy": {
+    "eyebrow": "Philosophy & Mastery",
+    "title": "The Alchemy of Ancient Wood & Crystal Resin",
+    "description": "At Galassia Epoxy Design, we reject mass production in favor of meticulous craft. Every commission begins with salvaging venerable timber — centuries-old olive, black walnut, and spalted maple — carefully stabilized over months of controlled moisture drying.",
+    "imageCaption": "Diamond Compound Polishing",
+    "steps": [
+      {
+        "number": "01",
+        "title": "Zero-VOC Museum Grade Resins",
+        "body": "All small-batch formulas are tested on real archival and museum test decades of lightfastness."
+      },
+      {
+        "number": "02",
+        "title": "Bespoke Custom Pigments & Gold Foils",
+        "body": "Every heavy mineral swirl is hand-stirred, with certain spatial gems and 24K leaf foil available."
+      },
+      {
+        "number": "03",
+        "title": "Direct WhatsApp Artisan Consultation",
+        "body": "Work directly with the lead designer from concept sketch to final inspection."
+      }
+    ]
+  },
+  "cta": {
+    "eyebrow": "Private Commission Consultation",
+    "title": "Dreaming of a bespoke centerpiece for your space?",
+    "description": "Connect directly with our master resin craftsmen on WhatsApp to discuss custom dimensions, live-edge wood selection, and personalized metallic color palettes.",
+    "startDiscussion": "Start WhatsApp Discussion",
+    "requestBrief": "Request Atelier Brief"
+  }
+}

@@ -1,0 +1,140 @@
+{
+  "page": {
+    "eyebrow": "Permanent Curation",
+    "title": "The Atelier Catalog",
+    "description": "Explore our handcrafted gallery of bespoke resin tables, wall art, serving boards, and lifestyle accents.",
+    "curingWindowLabel": "Curing Window",
+    "curingWindowValue": "21–28 days slow-pour degassed crystal resin",
+    "searchPlaceholder": "Search by material, pigment, or style…",
+    "substratesLabel": "Substrates:",
+    "substrates": ["Olive Wood", "Black Walnut", "Acacia", "Gold Leaf Veins"],
+    "allCollections": "All Collections",
+    "ctaEyebrow": "Private Architectural Commissions",
+    "ctaTitle": "Looking for specific dimensions or customized colors?",
+    "ctaDescription": "Our artisans collaborate directly with interior designers, architects, and private collectors. Every timber slab is individually sourced and color profiles are tailored to your interior palette.",
+    "initiateCommission": "Initiate WhatsApp Commission",
+    "viewBespokeProcess": "View Bespoke Process",
+    "breadcrumbProducts": "Products",
+    "pieceRef": "Piece Ref: {{ref}}",
+    "certifiedOriginal": "Certified Studio Original",
+    "mirrorPolish": "Mirror Polish",
+    "organicGrain": "Organic Grain",
+    "detailLabel": "Detail",
+    "handcraftedCheck": "100% Handcrafted Artisan Piece",
+    "foodSafeCheck": "Food-Safe Certified, Zero VOC Formulation",
+    "availableRef": "Available for immediate acquisition • Ref: {{ref}}",
+    "sendOrder": "Send via WhatsApp to Order / Inquire",
+    "requestCustom": "Request Custom Size or Colorway",
+    "responseTime": "Artisan team typically responds within 30 minutes on WhatsApp",
+    "metamorphosisEyebrow": "Mastery of Matter",
+    "metamorphosisTitle": "The Metamorphosis of Wood & Fluid",
+    "metamorphosisDescription": "Each piece passes through meticulous hand-shaping, resin casting, and diamond-grit restoration over weeks of controlled curing.",
+    "step1Badge": "01 • Curing",
+    "step1Title": "Slow Polymerization & Vein Sculpting",
+    "step1Body": "We carefully source aged timber with irregular sapwood. The resin is poured at room temperature in multiple layers, allowing artisans to suspend pigment swirls that hold their vortex structure as the resin solidifies without air pocket entrapment.",
+    "step2Badge": "02 • Heirloom Longevity",
+    "step2Title": "Preserving Lustre & Wood Hydration",
+    "step2Body": "Designed for luxury entertaining and delicate handling. Hand-wash with tepid water and gentle plant soap. Recondition edges every 3–4 months with the complimentary Galassia elixir to preserve grain depth.",
+    "pairingsEyebrow": "Harmonious Pairings",
+    "pairingsTitle": "Complete Your Atelier Collection",
+    "viewFullCatalog": "View Full Catalog"
+  },
+  "items": {
+    "aethel-river-dining-table": {
+      "category": "Dining & River Tables",
+      "badge": "Made to Order",
+      "title": "Aethel River Dining Table",
+      "materials": "Salvaged Tuscan olive & dual-mix metallic pigment",
+      "description": "Hand-poured smoky cosmic resin river embedded in thousand-year aged olive wood. Polished to optical diamond clarity with live edge preservation.",
+      "availability": "Available for immediate acquisition. No automated checkout — our atelier team coordinates shipping crates, protective packing, and bespoke delivery personally.",
+      "specs": [
+        { "label": "Dimensions", "value": "320cm × 110cm × 4cm (Approx. 126in × 43in)" },
+        { "label": "Timber Species", "value": "Salvaged Tuscan Olive Root" },
+        { "label": "Resin Infill", "value": "Smoky Cosmic Pigment & Dual-Mix Metallic" },
+        { "label": "Finish Layer", "value": "Diamond Polished Sheen" },
+        { "label": "Curing Time", "value": "32-Hour Progressive Polymerization" },
+        { "label": "Care Protocol", "value": "Hand Wash Only, Atelier Care Oil Included" }
+      ]
+    },
+    "emerald-gold-vein-board": {
+      "category": "Serving Trays & Boards",
+      "badge": "One-of-a-Kind Studio Original",
+      "title": "Emerald & Gold Vein Charcuterie Board",
+      "materials": "American black walnut & non-toxic certified resin",
+      "description": "An exquisite marriage of kiln-dried live-edge acacia walnut and hand-mixed epoxy resin. Swirled with deep emerald tones and liquid gold mica powder that catches light from every angle. Finished with organic food-safe beeswax and polished to a satin mirror sheen.",
+      "availability": "Galassia operates exclusively on direct atelier client reservations. No automated checkouts — we coordinate shipping crates, protective packing, and bespoke delivery personally.",
+      "specs": [
+        { "label": "Dimensions", "value": "52cm × 28cm × 2.8cm (Approx. 20.5in × 11in)" },
+        { "label": "Timber Species", "value": "Natural Kiln-Dried Acacia Walnut" },
+        { "label": "Resin Infill", "value": "Food-Safe Metallic Pigment & 24K Mica" },
+        { "label": "Finish Layer", "value": "Organic Beeswax & Diamond Polished Sheen" },
+        { "label": "Curing Time", "value": "28-Hour Progressive Polymerization" },
+        { "label": "Care Protocol", "value": "Hand Wash Only, Atelier Care Oil Included" }
+      ]
+    },
+    "celestial-geode-wall-sculpture": {
+      "category": "Wall Art & Geodes",
+      "badge": "Unique 1 of 1 · Signed Artwork",
+      "title": "Celestial Geode Wall Sculpture",
+      "materials": "Crushed quartz, obsidian shards & 24k leaf",
+      "description": "Multi-layered obsidian, pure white quartz, and radiant gold leaf epoxy on architectural wood substrate. High-gloss mirror refraction finish designed to command gallery walls and grand interior spans.",
+      "availability": "Reserved for private collections and architectural spaces. Direct atelier consultation required before commissioning.",
+      "specs": [
+        { "label": "Dimensions", "value": "180cm × 120cm (Approx. 71in × 47in)" },
+        { "label": "Mounting Spec", "value": "Integrated recessed aluminum French cleat" },
+        { "label": "Material & Minerals", "value": "Crushed quartz, obsidian shards, 24k gold leaf" },
+        { "label": "Finish Layer", "value": "High-Gloss Mirror Refraction" },
+        { "label": "Curing Time", "value": "40-Hour Progressive Polymerization" },
+        { "label": "Care Protocol", "value": "Dry Cloth Only, Avoid Direct Abrasion" }
+      ]
+    },
+    "amber-brass-rim-coaster-set": {
+      "category": "Home & Bar Accents",
+      "badge": "Studio Favorite",
+      "title": "Amber & Brass Rim Coaster Set",
+      "materials": "Cast jewel resin & spun raw solid brass",
+      "description": "Four handmade resin coasters with hand-hammered raw brass bezels and smoked amber swirls. Cork backing prevents surface scratches on fine furniture.",
+      "availability": "Ready to ship from atelier stock. Reach out via WhatsApp to confirm availability and arrange delivery.",
+      "specs": [
+        { "label": "Set Contents", "value": "4 Coasters, Supplied Presentation Tray" },
+        { "label": "Resin Infill", "value": "Cast Jewel Amber Pigment" },
+        { "label": "Hardware Accent", "value": "Hand-Hammered Solid Brass Bezel" },
+        { "label": "Finish Layer", "value": "Polished to Optical Gloss" },
+        { "label": "Curing Time", "value": "18-Hour Progressive Polymerization" },
+        { "label": "Care Protocol", "value": "Wipe Clean, Avoid Prolonged Moisture" }
+      ]
+    },
+    "galactic-drift-walnut-table": {
+      "category": "Dining & River Tables",
+      "badge": "Limited Run",
+      "title": "Galactic Drift Walnut Table",
+      "materials": "Black walnut & iridescent indigo swirl",
+      "description": "Biophilic coffee table featuring deep midnight blue and celestial gold swirl resin channels running between wild-grained walnut slabs.",
+      "availability": "Limited run of six. Custom dimensions and colorway available upon atelier consultation.",
+      "specs": [
+        { "label": "Dimensions", "value": "140cm × 80cm × 4cm (Approx. 55in × 31in)" },
+        { "label": "Timber Species", "value": "American Black Walnut" },
+        { "label": "Resin Infill", "value": "Iridescent Indigo & Celestial Gold Swirl" },
+        { "label": "Finish Layer", "value": "Diamond Polished Sheen" },
+        { "label": "Curing Time", "value": "30-Hour Progressive Polymerization" },
+        { "label": "Care Protocol", "value": "Hand Wash Only, Atelier Care Oil Included" }
+      ]
+    },
+    "imperial-onyx-serving-platter": {
+      "category": "Serving Trays & Boards",
+      "badge": "Hand Chiseled",
+      "title": "Imperial Onyx Serving Platter",
+      "materials": "Solid acacia root & carbon black cast resin",
+      "description": "Ergonomic carved handle tray sculpted from sustainably harvested acacia with an onyx black marble resin pour and champagne gold accent veins.",
+      "availability": "Hand-chiseled in small batches. Confirm current batch availability via WhatsApp.",
+      "specs": [
+        { "label": "Dimensions", "value": "65cm × 28cm × 3cm (Approx. 25.5in × 11in)" },
+        { "label": "Timber Species", "value": "Solid Acacia Root" },
+        { "label": "Resin Infill", "value": "Carbon Black & Champagne Gold Vein" },
+        { "label": "Finish Layer", "value": "Organic Beeswax & Diamond Polished Sheen" },
+        { "label": "Curing Time", "value": "26-Hour Progressive Polymerization" },
+        { "label": "Care Protocol", "value": "Hand Wash Only, Atelier Care Oil Included" }
+      ]
+    }
+  }
+}

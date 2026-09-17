@@ -1,0 +1,55 @@
+{
+  "hero": {
+    "eyebrow": "Atölye Siparişleri & Editoryal",
+    "title": "Sıvı Sanatın Kalıcı Zanaatla Buluştuğu Yer",
+    "subtitle": "Her kıvrımın, damarın ve yansımanın usta zanaatkârlarımız tarafından eşsiz şekilde biçimlendirildiği el yapımı epoksi reçine ve egzotik ahşap başyapıtlar.",
+    "exploreCatalog": "Kataloğu Keşfet",
+    "inquireWhatsapp": "WhatsApp'tan Bilgi Al",
+    "imageCaption": "Yaşlı Zeytin Ağacından Nebula Nehir Yemek Masası",
+    "stats": [
+      { "value": "%100", "label": "El Yapımı" },
+      { "value": "Zero-VOC", "label": "Çevre Dostu Reçine" },
+      { "value": "Tek Parça", "label": "Eşsiz Damarlar" }
+    ]
+  },
+  "collections": {
+    "eyebrow": "Atölye Disiplini",
+    "title": "Seçkin Koleksiyonlar",
+    "description": "Mineral pigmentasyon, derin reçine döküm katmanları ve elde cilalanmış bitkisel yüzeylerle tanımlanan farklı koleksiyonlar."
+  },
+  "masterworks": {
+    "eyebrow": "Sergi Vitrini",
+    "title": "Başyapıt Eserler",
+    "description": "Sınırlı atölye üretimiyle hazırlanan eşsiz sanat eserleri. Koleksiyonerlere ve mimari mekanlara ayrılmıştır."
+  },
+  "philosophy": {
+    "eyebrow": "Felsefe & Ustalık",
+    "title": "Kadim Ahşap ve Kristal Reçinenin Simyası",
+    "description": "Galassia Epoxy Design'da seri üretimi reddedip titiz zanaati benimsiyoruz. Her sipariş, aylarca kontrollü nem kurutmasıyla stabilize edilen yüzyıllık zeytin, siyah ceviz ve benekli akçaağaç gibi değerli kerestelerin kurtarılmasıyla başlar.",
+    "imageCaption": "Elmas Bileşikli Cilalama",
+    "steps": [
+      {
+        "number": "01",
+        "title": "Zero-VOC Müze Kalitesinde Reçineler",
+        "body": "Tüm küçük parti formüller gerçek arşiv ve müze ışık dayanıklılığı testlerinden geçirilir."
+      },
+      {
+        "number": "02",
+        "title": "Özel Pigmentler & Altın Varaklar",
+        "body": "Her yoğun mineral girdap elle karıştırılır; özel mekansal taşlar ve 24K yaprak varak seçenekleri mevcuttur."
+      },
+      {
+        "number": "03",
+        "title": "Doğrudan WhatsApp Zanaatkâr Danışmanlığı",
+        "body": "Konsept eskizinden son incelemeye kadar baş tasarımcıyla doğrudan çalışın."
+      }
+    ]
+  },
+  "cta": {
+    "eyebrow": "Özel Sipariş Danışmanlığı",
+    "title": "Mekanınız için özel bir başyapıt mı hayal ediyorsunuz?",
+    "description": "Özel ölçüler, canlı kenarlı ahşap seçimi ve kişiselleştirilmiş metalik renk paletleri için usta reçine zanaatkârlarımızla doğrudan WhatsApp'tan görüşün.",
+    "startDiscussion": "WhatsApp Görüşmesi Başlat",
+    "requestBrief": "Atölye Broşürü İste"
+  }
+}

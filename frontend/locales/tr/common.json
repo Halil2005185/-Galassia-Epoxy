@@ -1,0 +1,49 @@
+{
+  "banner": "El Yapımı Sanat Eserleri • Özel Sipariş Kabul Ediyoruz • WhatsApp'tan Bilgi Alın",
+  "nav": {
+    "home": "Ana Sayfa",
+    "products": "Ürünler",
+    "categories": "Kategoriler",
+    "about": "Atölye Hakkında",
+    "contact": "İletişim"
+  },
+  "chatWhatsapp": "WhatsApp'tan Yazın",
+  "account": "Hesap",
+  "openMenu": "Menüyü Aç",
+  "closeMenu": "Menüyü Kapat",
+  "language": "Dil",
+  "breadcrumbHome": "Ana Sayfa",
+  "actions": {
+    "viewDetails": "Detayları Gör",
+    "viewPiece": "Parçayı Gör",
+    "viewCollection": "Koleksiyonu Gör",
+    "whatsappInquire": "WhatsApp'tan Sor",
+    "inquireWhatsapp": "WhatsApp'tan Bilgi Al"
+  },
+  "footer": {
+    "brandName": "Galassia Epoxy Design",
+    "brandDescription": "Seçkin iç mekanlar ve koleksiyonerler için özel epoksi reçine sanatı, akışkan estetik ve lüks el yapımı mobilyalar.",
+    "atelierNoticeTitle": "Atölye Notu",
+    "atelierNoticeBody": "Tüm parçalar tek ve eşsiz el yapımı eserlerdir. Özel ölçü ve renk paletleri sipariş üzerine hazırlanır.",
+    "curatedWorks": "Seçkin Eserler",
+    "atelier": "Atölye",
+    "privateConcierge": "Özel Danışmanlık",
+    "conciergeBody": "Ölçü, mineral pigmentasyon ve ahşap seçimi için usta zanaatkârlarımızla doğrudan iletişime geçin.",
+    "phone": "+1 (800) 555-RESIN",
+    "hours": "Pzt – Cmt, 10:00 – 18:00",
+    "social": "@galassia.epoxydesign • Facebook",
+    "copyright": "© 2024 Galassia Epoxy Design Atölyesi. Tüm hakları saklıdır.",
+    "tagline": "El Yapımı Akışkanlık • İncelikli Yaşam",
+    "links": {
+      "allProducts": "Tüm Ürünler",
+      "diningTables": "Yemek & Nehir Masaları",
+      "servingTrays": "Servis Tepsileri & Tahtalar",
+      "wallArt": "Duvar Sanatı & Jeotlar",
+      "homeAccents": "Ev Aksesuarları",
+      "aboutStudio": "Atölye Hakkında",
+      "bespokeInquiry": "Özel Sipariş Talebi",
+      "careGuide": "Bakım Rehberi",
+      "privateConsultation": "Özel Danışmanlık"
+    }
+  }
+}

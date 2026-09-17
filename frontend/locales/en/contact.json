@@ -1,0 +1,24 @@
+{
+  "eyebrow": "Private Concierge",
+  "title": "Contact the Atelier",
+  "description": "Reach our principal artist and wood technicians directly. Share your spatial sketches, paint swatches, or timber preferences and we will respond via WhatsApp.",
+  "nameLabel": "Name",
+  "namePlaceholder": "Your full name",
+  "interestLabel": "Area of Interest",
+  "interestPlaceholder": "e.g. River dining table, custom colorway",
+  "notesLabel": "Notes",
+  "notesPlaceholder": "Dimensions, timber preference, timeline…",
+  "sendWhatsapp": "Send via WhatsApp",
+  "directLineLabel": "Direct Line",
+  "hours": "Mon – Sat, 10:00 – 18:00 GST",
+  "studioLabel": "Studio",
+  "studioValue": "@galassia.epoxydesign • Facebook",
+  "responseTimeLabel": "Response Time",
+  "responseTimeBody": "Artisan team typically responds within 30 minutes on WhatsApp during atelier hours.",
+  "message": {
+    "intro": "Hi Galassia, I'd like to request a private consultation.",
+    "name": "Name: {{value}}",
+    "interest": "Area of interest: {{value}}",
+    "notes": "Notes: {{value}}"
+  }
+}

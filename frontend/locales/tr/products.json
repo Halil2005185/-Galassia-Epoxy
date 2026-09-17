@@ -1,0 +1,140 @@
+{
+  "page": {
+    "eyebrow": "Kalıcı Küratörlük",
+    "title": "Atölye Kataloğu",
+    "description": "El yapımı özel reçine masalar, duvar sanatı, servis tahtaları ve yaşam aksesuarlarından oluşan galerimizi keşfedin.",
+    "curingWindowLabel": "Kürleme Süresi",
+    "curingWindowValue": "21–28 gün yavaş dökümlü, gazı alınmış kristal reçine",
+    "searchPlaceholder": "Malzeme, pigment veya stile göre ara…",
+    "substratesLabel": "Ahşap Türleri:",
+    "substrates": ["Zeytin Ağacı", "Siyah Ceviz", "Akasya", "Altın Varak Damarlı"],
+    "allCollections": "Tüm Koleksiyonlar",
+    "ctaEyebrow": "Özel Mimari Siparişler",
+    "ctaTitle": "Özel ölçü veya kişiselleştirilmiş renkler mi arıyorsunuz?",
+    "ctaDescription": "Zanaatkârlarımız iç mimarlar, mimarlar ve özel koleksiyonerlerle doğrudan iş birliği yapar. Her ahşap dilimi özenle seçilir ve renk paletleri iç mekanınıza göre uyarlanır.",
+    "initiateCommission": "WhatsApp'tan Sipariş Başlat",
+    "viewBespokeProcess": "Özel Üretim Sürecini Gör",
+    "breadcrumbProducts": "Ürünler",
+    "pieceRef": "Parça Referansı: {{ref}}",
+    "certifiedOriginal": "Sertifikalı Atölye Orijinali",
+    "mirrorPolish": "Ayna Cila",
+    "organicGrain": "Doğal Doku",
+    "detailLabel": "Detay",
+    "handcraftedCheck": "%100 El Yapımı Zanaat Eseri",
+    "foodSafeCheck": "Gıdayla Temasa Uygun, Zero-VOC Formül",
+    "availableRef": "Hemen teslim alınabilir • Ref: {{ref}}",
+    "sendOrder": "Sipariş / Bilgi için WhatsApp'tan Yazın",
+    "requestCustom": "Özel Ölçü veya Renk Talep Et",
+    "responseTime": "Zanaatkâr ekibimiz WhatsApp'ta genellikle 30 dakika içinde yanıt verir",
+    "metamorphosisEyebrow": "Madde Ustalığı",
+    "metamorphosisTitle": "Ahşap ve Sıvının Dönüşümü",
+    "metamorphosisDescription": "Her parça, haftalarca süren kontrollü kürleme boyunca titiz el işçiliği, reçine dökümü ve elmas taşlı cilalama aşamalarından geçer.",
+    "step1Badge": "01 • Kürleme",
+    "step1Title": "Yavaş Polimerizasyon & Damar Şekillendirme",
+    "step1Body": "Düzensiz öz odunlu, yaşlı kerestelerimizi özenle seçiyoruz. Reçine oda sıcaklığında çok katmanlı olarak dökülür; böylece zanaatkârlar, reçine hava boşluğu oluşturmadan katılaşırken girdap yapısını koruyan pigment girdapları oluşturabilir.",
+    "step2Badge": "02 • Nesilden Nesile Dayanıklılık",
+    "step2Title": "Parlaklığı ve Ahşap Nemini Koruma",
+    "step2Body": "Lüks ağırlama ve hassas kullanım için tasarlanmıştır. Ilık suyla ve yumuşak bitkisel sabunla elde yıkayın. Doku derinliğini korumak için kenarları her 3–4 ayda bir ücretsiz Galassia iksiriyle yenileyin.",
+    "pairingsEyebrow": "Uyumlu Eşleşmeler",
+    "pairingsTitle": "Atölye Koleksiyonunuzu Tamamlayın",
+    "viewFullCatalog": "Tüm Kataloğu Gör"
+  },
+  "items": {
+    "aethel-river-dining-table": {
+      "category": "Yemek & Nehir Masaları",
+      "badge": "Siparişe Özel",
+      "title": "Aethel Nehir Yemek Masası",
+      "materials": "Kurtarılmış Toskana zeytini & çift karışım metalik pigment",
+      "description": "Bin yıllık yaşlı zeytin ağacına gömülü, elle dökülmüş dumanlı kozmik reçine nehri. Canlı kenar korunarak optik elmas berraklığında cilalanmıştır.",
+      "availability": "Hemen teslim alınabilir. Otomatik ödeme yoktur — atölye ekibimiz sevkiyat sandıklarını, koruyucu paketlemeyi ve özel teslimatı bizzat koordine eder.",
+      "specs": [
+        { "label": "Ölçüler", "value": "320cm × 110cm × 4cm (Yaklaşık 126in × 43in)" },
+        { "label": "Ahşap Türü", "value": "Kurtarılmış Toskana Zeytin Kökü" },
+        { "label": "Reçine Dolgusu", "value": "Dumanlı Kozmik Pigment & Çift Karışım Metalik" },
+        { "label": "Yüzey Kaplaması", "value": "Elmas Cilalı Parlaklık" },
+        { "label": "Kürleme Süresi", "value": "32 Saatlik Kademeli Polimerizasyon" },
+        { "label": "Bakım Talimatı", "value": "Sadece Elde Yıkayın, Atölye Bakım Yağı Dahildir" }
+      ]
+    },
+    "emerald-gold-vein-board": {
+      "category": "Servis Tepsileri & Tahtalar",
+      "badge": "Tek ve Eşsiz Atölye Orijinali",
+      "title": "Zümrüt & Altın Damarlı Şarküteri Tahtası",
+      "materials": "Amerikan siyah cevizi & gıdaya uygun sertifikalı reçine",
+      "description": "Fırında kurutulmuş canlı kenarlı akasya cevizi ile elde karıştırılmış epoksi reçinenin eşsiz birleşimi. Her açıdan ışığı yakalayan derin zümrüt tonları ve sıvı altın mika tozuyla girdaplandırılmıştır. Organik gıdaya uygun bal mumu ile bitirilip saten ayna parlaklığında cilalanmıştır.",
+      "availability": "Galassia yalnızca doğrudan atölye müşteri rezervasyonlarıyla çalışır. Otomatik ödeme yoktur — sevkiyat sandıklarını, koruyucu paketlemeyi ve özel teslimatı biz koordine ederiz.",
+      "specs": [
+        { "label": "Ölçüler", "value": "52cm × 28cm × 2,8cm (Yaklaşık 20,5in × 11in)" },
+        { "label": "Ahşap Türü", "value": "Doğal Fırın Kurutmalı Akasya Cevizi" },
+        { "label": "Reçine Dolgusu", "value": "Gıdaya Uygun Metalik Pigment & 24K Mika" },
+        { "label": "Yüzey Kaplaması", "value": "Organik Bal Mumu & Elmas Cilalı Parlaklık" },
+        { "label": "Kürleme Süresi", "value": "28 Saatlik Kademeli Polimerizasyon" },
+        { "label": "Bakım Talimatı", "value": "Sadece Elde Yıkayın, Atölye Bakım Yağı Dahildir" }
+      ]
+    },
+    "celestial-geode-wall-sculpture": {
+      "category": "Duvar Sanatı & Jeotlar",
+      "badge": "Tek Parça · İmzalı Eser",
+      "title": "Göksel Jeot Duvar Heykeli",
+      "materials": "Kırık kuvars, obsidyen parçaları & 24k varak",
+      "description": "Mimari ahşap zemin üzerine çok katmanlı obsidyen, saf beyaz kuvars ve parlak altın varaklı epoksi. Galeri duvarlarına ve geniş iç mekanlara hükmedecek şekilde tasarlanmış yüksek parlaklıkta ayna kırılması bitişi.",
+      "availability": "Özel koleksiyonlar ve mimari mekanlar için ayrılmıştır. Sipariş öncesi doğrudan atölye danışmanlığı gereklidir.",
+      "specs": [
+        { "label": "Ölçüler", "value": "180cm × 120cm (Yaklaşık 71in × 47in)" },
+        { "label": "Montaj Detayı", "value": "Gömülü alüminyum Fransız aski sistemi" },
+        { "label": "Malzeme & Mineraller", "value": "Kırık kuvars, obsidyen parçaları, 24k altın varak" },
+        { "label": "Yüzey Kaplaması", "value": "Yüksek Parlaklıkta Ayna Kırılması" },
+        { "label": "Kürleme Süresi", "value": "40 Saatlik Kademeli Polimerizasyon" },
+        { "label": "Bakım Talimatı", "value": "Sadece Kuru Bezle Silin, Aşındırmaktan Kaçının" }
+      ]
+    },
+    "amber-brass-rim-coaster-set": {
+      "category": "Ev & Bar Aksesuarları",
+      "badge": "Atölye Favorisi",
+      "title": "Kehribar & Pirinç Kenarlı Bardak Altlığı Seti",
+      "materials": "Döküm mücevher reçinesi & el dövmesi ham pirinç",
+      "description": "El dövmesi ham pirinç çerçeveli ve dumanlı kehribar girdaplı dört adet el yapımı reçine bardak altlığı. Mantar arka yüzey, ince mobilyalarda çizilmeyi önler.",
+      "availability": "Atölye stoğundan hemen sevkiyata hazır. Uygunluk teyidi ve teslimat için WhatsApp'tan bize ulaşın.",
+      "specs": [
+        { "label": "Set İçeriği", "value": "4 Bardak Altlığı, Sunum Tepsisi Dahil" },
+        { "label": "Reçine Dolgusu", "value": "Döküm Mücevher Kehribar Pigment" },
+        { "label": "Donanım Detayı", "value": "El Dövmesi Masif Pirinç Çerçeve" },
+        { "label": "Yüzey Kaplaması", "value": "Optik Parlaklığa Cilalı" },
+        { "label": "Kürleme Süresi", "value": "18 Saatlik Kademeli Polimerizasyon" },
+        { "label": "Bakım Talimatı", "value": "Nemli Bezle Silin, Uzun Süre Islak Bırakmayın" }
+      ]
+    },
+    "galactic-drift-walnut-table": {
+      "category": "Yemek & Nehir Masaları",
+      "badge": "Sınırlı Üretim",
+      "title": "Galaktik Sürüklenme Ceviz Masası",
+      "materials": "Siyah ceviz & sedefli çivit mavisi girdap",
+      "description": "Doğal desenli ceviz dilimleri arasında akan derin gece mavisi ve göksel altın girdaplı reçine kanallarına sahip biyofilik sehpa.",
+      "availability": "Altı adetle sınırlı üretim. Özel ölçü ve renk seçenekleri atölye danışmanlığıyla mümkündür.",
+      "specs": [
+        { "label": "Ölçüler", "value": "140cm × 80cm × 4cm (Yaklaşık 55in × 31in)" },
+        { "label": "Ahşap Türü", "value": "Amerikan Siyah Cevizi" },
+        { "label": "Reçine Dolgusu", "value": "Sedefli Çivit Mavisi & Göksel Altın Girdap" },
+        { "label": "Yüzey Kaplaması", "value": "Elmas Cilalı Parlaklık" },
+        { "label": "Kürleme Süresi", "value": "30 Saatlik Kademeli Polimerizasyon" },
+        { "label": "Bakım Talimatı", "value": "Sadece Elde Yıkayın, Atölye Bakım Yağı Dahildir" }
+      ]
+    },
+    "imperial-onyx-serving-platter": {
+      "category": "Servis Tepsileri & Tahtalar",
+      "badge": "Elde Yontulmuş",
+      "title": "İmparatorluk Oniksi Servis Tepsisi",
+      "materials": "Masif akasya kökü & karbon siyahı döküm reçine",
+      "description": "Sürdürülebilir şekilde hasat edilmiş akasyadan yontulmuş, ergonomik saplı; oniks siyahı mermer reçine dökümü ve şampanya altını aksan damarlarına sahip tepsi.",
+      "availability": "Küçük partiler halinde elde yontulur. Mevcut parti uygunluğunu WhatsApp'tan teyit edin.",
+      "specs": [
+        { "label": "Ölçüler", "value": "65cm × 28cm × 3cm (Yaklaşık 25,5in × 11in)" },
+        { "label": "Ahşap Türü", "value": "Masif Akasya Kökü" },
+        { "label": "Reçine Dolgusu", "value": "Karbon Siyahı & Şampanya Altını Damar" },
+        { "label": "Yüzey Kaplaması", "value": "Organik Bal Mumu & Elmas Cilalı Parlaklık" },
+        { "label": "Kürleme Süresi", "value": "26 Saatlik Kademeli Polimerizasyon" },
+        { "label": "Bakım Talimatı", "value": "Sadece Elde Yıkayın, Atölye Bakım Yağı Dahildir" }
+      ]
+    }
+  }
+}

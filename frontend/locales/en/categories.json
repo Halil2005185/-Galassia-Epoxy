@@ -1,0 +1,77 @@
+{
+  "page": {
+    "eyebrow": "Catalog Vol. II • Editorial Index",
+    "title": "The Collections",
+    "description": "Four curated expressions of fluid resin alchemy and natural timber, conceived for architectural spaces and private collectors.",
+    "archiveIndexLabel": "Archive Index",
+    "archiveIndexValue": "24 Crafted Works",
+    "methodLabel": "Method",
+    "methodValue": "Hand-Poured",
+    "values": [
+      { "title": "Fallen Timber Only", "body": "We source felled logs and centuries-old stock from managed forests, honoring the organic morphology of each species." },
+      { "title": "30-Day Slow Curing", "body": "Deep-pour bio-resin undergoes temperature-stabilized curing for both bubble-free clarity and long-term stability." },
+      { "title": "Atelier Certificate", "body": "Every artwork ships accompanied by an archival steel plate certificate inscribed with a serial number, atelier signature, and provenance." }
+    ],
+    "ctaEyebrow": "Commission Consultation",
+    "ctaTitle": "Envisioning a custom dimension or proprietary pigment vein?",
+    "ctaDescription": "Our principal artist and wood technicians collaborate directly with interior designers, architects, and private clients. Send your spatial sketches, paint swatches, or timber preferences for immediate consultation.",
+    "requestLookbook": "Request Digital Lookbook",
+    "commissionSpecs": "Commission Specs",
+    "breadcrumbCategories": "Categories",
+    "piecesInCollection": "Pieces in this Collection"
+  },
+  "items": {
+    "dining-river-tables": {
+      "eyebrow": "Architectural Furniture",
+      "plate": "Plate N° 001",
+      "series": "Series 01 / Monumental",
+      "title": "River Dining Tables & Centerpieces",
+      "description": "Statement dining and conference tables handcrafted with sustainably sourced live-edge olive wood, French walnut, and translucent epoxy rivers that capture ambient interior light.",
+      "specs": [
+        { "label": "Base Architecture", "value": "Blackened steel, raw brass, marble-thin wood" },
+        { "label": "Surface Finish", "value": "Scratch-resistant diamond crystal coat" },
+        { "label": "Custom Scale", "value": "Tailored spans up to 4.0 meters" }
+      ],
+      "ctaLabel": "Explore River Tables (6 Pieces)"
+    },
+    "serving-trays-boards": {
+      "eyebrow": "Culinary Sculptures",
+      "plate": "Plate N° 002",
+      "series": "Series 02 / Gastronomy",
+      "title": "Artisan Serving Trays & Charcuterie Boards",
+      "description": "Functional culinary art featuring mesmerizing fluid swirls of gold, emerald, and midnight black paired with rich natural timber. Every piece functions as heirloom serving board or tabletop sculpture.",
+      "specs": [
+        { "label": "Certification", "value": "100% Non-toxic, food-grade resin" },
+        { "label": "Hardware Accent", "value": "Ergonomic solid cast brass pulls" },
+        { "label": "Personalization", "value": "Atelier laser monogram & date mark" }
+      ],
+      "ctaLabel": "Explore Serving Trays (8 Pieces)"
+    },
+    "wall-art-geodes": {
+      "eyebrow": "Fine Art Monoliths",
+      "plate": "Plate N° 003",
+      "series": "Series 03 / High Art",
+      "title": "Geode & Celestial Resin Wall Panels",
+      "description": "High-gloss resin wall art infused with semi-precious quartz crystals, metallic pigments, and shimmering gold dust. Calibrated to interact dynamically with direct sunlight and interior gallery spans.",
+      "specs": [
+        { "label": "Mounting Spec", "value": "Integrated recessed aluminum French cleat" },
+        { "label": "Material & Minerals", "value": "Smoky quartz, mica flakes, 24k gold leaf" },
+        { "label": "Curatorial Scale", "value": "Single panels or modular triptychs" }
+      ],
+      "ctaLabel": "Explore Wall Panels (5 Pieces)"
+    },
+    "home-bar-accents": {
+      "eyebrow": "Tactile Lifestyle",
+      "plate": "Plate N° 004",
+      "series": "Series 04 / Interior Sculptures",
+      "title": "Bespoke Home & Bar Decor Accents",
+      "description": "Refined lifestyle accessories including raw-edge coaster sets, sculptural vessels, sommelier wine caddies, and organizers cast with subtle amber and black gold veils.",
+      "specs": [
+        { "label": "Framing Edge", "value": "Hand-torched brushed bronze bordering" },
+        { "label": "Base Protection", "value": "Pure Spanish merino wool felt backing" },
+        { "label": "Packaging", "value": "Custom embossed presentation box" }
+      ],
+      "ctaLabel": "Explore Decor Accents (5 Pieces)"
+    }
+  }
+}

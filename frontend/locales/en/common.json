@@ -1,0 +1,49 @@
+{
+  "banner": "Artisanal Handmade Pieces • Bespoke Commissions Available • Inquire via WhatsApp",
+  "nav": {
+    "home": "Home",
+    "products": "Products",
+    "categories": "Categories",
+    "about": "About Studio",
+    "contact": "Contact"
+  },
+  "chatWhatsapp": "Chat on WhatsApp",
+  "account": "Account",
+  "openMenu": "Open menu",
+  "closeMenu": "Close menu",
+  "language": "Language",
+  "breadcrumbHome": "Home",
+  "actions": {
+    "viewDetails": "View Details",
+    "viewPiece": "View Piece",
+    "viewCollection": "View Collection",
+    "whatsappInquire": "WhatsApp Inquire",
+    "inquireWhatsapp": "Inquire on WhatsApp"
+  },
+  "footer": {
+    "brandName": "Galassia Epoxy Design",
+    "brandDescription": "Bespoke resin artistry, fluid aesthetics, and luxury handcrafted furniture tailored for refined interiors and discerning collectors.",
+    "atelierNoticeTitle": "Atelier Notice",
+    "atelierNoticeBody": "All items are one-of-a-kind handmade creations. Custom dimensions and color palettes crafted upon commission.",
+    "curatedWorks": "Curated Works",
+    "atelier": "Atelier",
+    "privateConcierge": "Private Concierge",
+    "conciergeBody": "Connect directly with master craftsmen for dimensions, mineral pigmentation, and timber selections.",
+    "phone": "+1 (800) 555-RESIN",
+    "hours": "Mon – Sat, 10:00 – 18:00 GST",
+    "social": "@galassia.epoxydesign • Facebook",
+    "copyright": "© 2024 Galassia Epoxy Design Atelier. All rights reserved.",
+    "tagline": "Handcrafted Fluidity • Fine Living",
+    "links": {
+      "allProducts": "All Products",
+      "diningTables": "Dining Tables & River Tables",
+      "servingTrays": "Serving Trays & Boards",
+      "wallArt": "Wall Art & Geodes",
+      "homeAccents": "Home Accents",
+      "aboutStudio": "About Studio",
+      "bespokeInquiry": "Bespoke Inquiry",
+      "careGuide": "Care Guide",
+      "privateConsultation": "Private Consultation"
+    }
+  }
+}

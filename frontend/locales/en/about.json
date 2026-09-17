@@ -1,0 +1,14 @@
+{
+  "eyebrow": "Atelier Notice",
+  "title": "About the Studio",
+  "description": "Galassia Epoxy Design is a private atelier of master craftsmen dedicated to fluid resin artistry and exotic hardwood furniture. Every commission is shaped by hand, one piece at a time, without mass production or shortcuts.",
+  "imageCaption": "Diamond Compound Polishing",
+  "values": [
+    { "title": "Fallen Timber Only", "body": "We source felled logs and centuries-old stock from managed forests, honoring the organic morphology of each species." },
+    { "title": "30-Day Slow Curing", "body": "Deep-pour bio-resin undergoes temperature-stabilized curing for both bubble-free clarity and long-term stability." },
+    { "title": "Atelier Certificate", "body": "Every artwork ships accompanied by an archival steel plate certificate inscribed with a serial number and provenance." }
+  ],
+  "ctaEyebrow": "Private Commission Consultation",
+  "ctaTitle": "Meet the atelier team on WhatsApp",
+  "startDiscussion": "Start WhatsApp Discussion"
+}

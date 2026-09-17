@@ -1,0 +1,14 @@
+{
+  "eyebrow": "Atölye Notu",
+  "title": "Atölye Hakkında",
+  "description": "Galassia Epoxy Design, akışkan reçine sanatına ve egzotik sert ahşap mobilyalara adanmış usta zanaatkârlardan oluşan özel bir atölyedir. Her sipariş, seri üretim veya kısayol olmadan, tek seferde bir parça olarak elle şekillendirilir.",
+  "imageCaption": "Elmas Bileşikli Cilalama",
+  "values": [
+    { "title": "Sadece Devrik Kereste", "body": "Yönetilen ormanlardan devrik kütükler ve yüzyıllık stoklar temin ederek her türün doğal morfolojisine saygı gösteriyoruz." },
+    { "title": "30 Günlük Yavaş Kürleme", "body": "Derin dökümlü bio-reçine, hem kabarcıksız berraklık hem de uzun ömürlü stabilite için sıcaklık kontrollü kürlemeden geçer." },
+    { "title": "Atölye Sertifikası", "body": "Her eser, seri numarası ve köken bilgisiyle işlenmiş arşivlik çelik plaka sertifikasıyla birlikte gönderilir." }
+  ],
+  "ctaEyebrow": "Özel Sipariş Danışmanlığı",
+  "ctaTitle": "Atölye ekibiyle WhatsApp'ta tanışın",
+  "startDiscussion": "WhatsApp Görüşmesi Başlat"
+}
