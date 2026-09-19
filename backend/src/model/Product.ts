@@ -1,4 +1,4 @@
-import mongoose, { Schema, Document, Model } from "mongoose";
+import mongoose, { Schema, Model } from "mongoose";
 import joi from "joi";
 import Joi from "joi";
 export interface ILocalizedText {
@@ -7,11 +7,16 @@ export interface ILocalizedText {
   tr: string;
 }
 
+export interface IProductImage {
+  key: string;
+  url: string;
+}
+
 interface validateProductSchema {
   name: ILocalizedText;
   description: ILocalizedText;
   slug: string;
-  images: string[];
+  images: IProductImage[];
   category: mongoose.Types.ObjectId;
   createdAt: Date;
   updatedAt: Date;
@@ -21,15 +26,15 @@ interface UpdateProductSchema {
   name: ILocalizedText;
   description: ILocalizedText;
   slug: string;
-  images: string[];
+  images: IProductImage[];
   category: mongoose.Types.ObjectId;
 }
 
-export interface IProduct extends Document {
+export interface IProduct {
   name: ILocalizedText;
   description: ILocalizedText;
   slug: string;
-  images: string[];
+  images: IProductImage[];
   category: mongoose.Types.ObjectId;
   createdAt: Date;
   updatedAt: Date;
@@ -63,10 +68,21 @@ const productSchema = new Schema<IProduct>(
       ],
     },
     images: {
-      type: [String],
+      type: [
+        {
+          key: {
+            type: String,
+            required: true,
+          },
+          url: {
+            type: String,
+            required: true,
+          },
+        },
+      ],
       required: true,
       validate: {
-        validator: function (v: string[]) {
+        validator: function (v: IProductImage[]) {
           return v.length >= 1 && v.length <= 5;
         },
         message: "A product must have between 1 and 5 images.",
@@ -85,7 +101,7 @@ const Product: Model<IProduct> =
   mongoose.models.Product || mongoose.model<IProduct>("Product", productSchema);
 
 
-  // Validation function for product schema using Joi
+// Validation function for product schema using Joi
 export function productValidationSchema(obj: validateProductSchema) {
   const Schema = Joi.object({
     name: Joi.object({
@@ -105,8 +121,16 @@ export function productValidationSchema(obj: validateProductSchema) {
         "string.pattern.base":
           "Slug must be lowercase, alphanumeric, and hyphen-separated.",
       }),
-    images: Joi.array().items(Joi.string()).min(1).max(5).required(),
-    category: Joi.string().length(24).hex().required(),
+    images: Joi.array()
+      .items(
+        Joi.object({
+          key: Joi.string().required(),
+          url: Joi.string().required(),
+        })
+      )
+      .min(1)
+      .max(5)
+      .required(), category: Joi.string().length(24).hex().required(),
   });
   return Schema.validate(obj, { abortEarly: false });
 }
@@ -118,21 +142,28 @@ export function UpdateProductValidationSchema(obj: Partial<UpdateProductSchema>)
       ar: Joi.string().required(),
       en: Joi.string().required(),
       tr: Joi.string().required(),
-    }).required(),
+    }),
     description: Joi.object({
       ar: Joi.string().required(),
       en: Joi.string().required(),
       tr: Joi.string().required(),
-    }).required(),
+    }),
     slug: Joi.string()
       .pattern(/^[a-z0-9]+(?:-[a-z0-9]+)*$/)
-      .required()
       .messages({
         "string.pattern.base":
           "Slug must be lowercase, alphanumeric, and hyphen-separated.",
       }),
-    images: Joi.array().items(Joi.string()).min(1).max(5).required(),
-    category: Joi.string().length(24).hex().required(),
+    images: Joi.array()
+      .items(
+        Joi.object({
+          key: Joi.string().required(),
+          url: Joi.string().required(),
+        })
+      )
+      .min(1)
+      .max(5),
+    category: Joi.string().length(24).hex(),
   });
   return Schema.validate(obj, { abortEarly: false });
 }

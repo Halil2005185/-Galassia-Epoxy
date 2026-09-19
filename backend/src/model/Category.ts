@@ -1,12 +1,11 @@
-import mongoose from "mongoose";
-
+import mongoose, { Model } from "mongoose";import Joi from "joi";
 export interface ILocalizedText {
   ar: string;
   en: string;
   tr: string;
 }
 
-export interface ICategory extends mongoose.Document {
+export interface ICategory {
   name: ILocalizedText;
   slug: string;
   createdAt: Date;
@@ -36,4 +35,31 @@ const categorySchema = new mongoose.Schema<ICategory>({
 },{ timestamps: true });
 
 
-export const Category = mongoose.models.Category || mongoose.model<ICategory>("Category", categorySchema);
+export const Category: Model<ICategory> = mongoose.models.Category || mongoose.model<ICategory>("Category", categorySchema);
+
+// Validation function for category
+export function categoryValidationSchema(obj: ICategory) {
+  const schema = Joi.object({
+    name: Joi.object({
+      ar: Joi.string().required(),
+      en: Joi.string().required(),
+      tr: Joi.string().required(),
+    }).required(),
+    slug: Joi.string().required().pattern(/^[a-z0-9]+(?:-[a-z0-9]+)*$/),
+  });
+
+  return schema.validate(obj);
+}
+
+// Validation function for updating category
+export function updateCategoryValidationSchema(obj: Partial<ICategory>) {
+  const schema = Joi.object({
+    name: Joi.object({
+      ar: Joi.string(),
+      en: Joi.string(),
+      tr: Joi.string(),
+    }),
+    slug: Joi.string().pattern(/^[a-z0-9]+(?:-[a-z0-9]+)*$/),
+  });
+  return schema.validate(obj);
+}
