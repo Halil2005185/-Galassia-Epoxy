@@ -16,7 +16,6 @@ interface validateProductSchema {
   name: ILocalizedText;
   description: ILocalizedText;
   slug: string;
-  images: IProductImage[];
   category: mongoose.Types.ObjectId;
   createdAt: Date;
   updatedAt: Date;
@@ -26,7 +25,6 @@ interface UpdateProductSchema {
   name: ILocalizedText;
   description: ILocalizedText;
   slug: string;
-  images: IProductImage[];
   category: mongoose.Types.ObjectId;
 }
 
@@ -121,16 +119,7 @@ export function productValidationSchema(obj: validateProductSchema) {
         "string.pattern.base":
           "Slug must be lowercase, alphanumeric, and hyphen-separated.",
       }),
-    images: Joi.array()
-      .items(
-        Joi.object({
-          key: Joi.string().required(),
-          url: Joi.string().required(),
-        })
-      )
-      .min(1)
-      .max(5)
-      .required(), category: Joi.string().length(24).hex().required(),
+    category: Joi.string().length(24).hex().required(),
   });
   return Schema.validate(obj, { abortEarly: false });
 }
@@ -154,15 +143,6 @@ export function UpdateProductValidationSchema(obj: Partial<UpdateProductSchema>)
         "string.pattern.base":
           "Slug must be lowercase, alphanumeric, and hyphen-separated.",
       }),
-    images: Joi.array()
-      .items(
-        Joi.object({
-          key: Joi.string().required(),
-          url: Joi.string().required(),
-        })
-      )
-      .min(1)
-      .max(5),
     category: Joi.string().length(24).hex(),
   });
   return Schema.validate(obj, { abortEarly: false });

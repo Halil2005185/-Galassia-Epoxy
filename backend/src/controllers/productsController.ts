@@ -1,5 +1,5 @@
 import type { Request, Response } from "express";
-import Product, { productValidationSchema, UpdateProductValidationSchema } from "../model/Product.js";
+import Product, { productValidationSchema, UpdateProductValidationSchema, type IProductImage } from "../model/Product.js";
 import asyncHandler from "express-async-handler";
 import type { } from "multer";
 import { deleteFile, uploadFile } from "../config/r2.js";
@@ -28,14 +28,14 @@ export const AddProducts = asyncHandler(async (req: Request, res: Response) => {
 
     const files = req.files as Express.Multer.File[];
 
- const images = await Promise.all(
-  files.map((file) =>
-    uploadFile(
-      file.buffer,
-      `products/${Date.now()}-${file.originalname}`
-    )
-  )
-);
+    const images = await Promise.all(
+        files.map((file) =>
+            uploadFile(
+                file.buffer,
+                `products/${Date.now()}-${file.originalname}`
+            )
+        )
+    );
     const newProduct = await Product.create({
         name,
         description,
@@ -122,6 +122,11 @@ export const DeleteProducts = asyncHandler(async (req: Request, res: Response) =
         });
         return;
     }
+
+    await Promise.all(
+        deletedProduct.images.map((image) => deleteFile(image.key))
+    );
+
     res.status(200).json({
         message: "Product deleted successfully",
     });
