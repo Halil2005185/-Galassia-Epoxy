@@ -7,11 +7,35 @@ export const GetProducts = asyncHandler(
     async (req: Request, res: Response) => {
         const { page = 1, limit = 10 } = req.query;
 
-        const products = await Product.find()
-            .skip((Number(page) - 1) * Number(limit))
-            .limit(Number(limit));
+        const [products, total] = await Promise.all([
+            Product.find()
+                .populate("category")
+                .skip((Number(page) - 1) * Number(limit))
+                .limit(Number(limit)),
+            Product.countDocuments(),
+        ]);
 
-        res.status(200).json(products);
+        res.status(200).json({
+            products,
+            total,
+            page: Number(page),
+            pages: Math.ceil(total / Number(limit)),
+        });
+    }
+);
+
+export const GetProductBySlug = asyncHandler(
+    async (req: Request, res: Response) => {
+        const slug = String(req.params.slug ?? "");
+
+        const product = await Product.findOne({ slug }).populate("category");
+
+        if (!product) {
+            res.status(404).json({ message: "Product not found" });
+            return;
+        }
+
+        res.status(200).json(product);
     }
 );
 

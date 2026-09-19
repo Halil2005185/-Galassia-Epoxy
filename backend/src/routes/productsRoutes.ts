@@ -1,11 +1,14 @@
 import express from "express";
-import { AddProducts, DeleteProducts, GetProducts, UpdateProducts } from "../controllers/productsController.js";
+import { AddProducts, DeleteProducts, GetProductBySlug, GetProducts, UpdateProducts } from "../controllers/productsController.js";
 import upload from "../middleware/upload.js";
 
 const route = express.Router();
 
 // api/products (Get all products)
 route.get("/",GetProducts);
+
+// api/products/slug/:slug (Get a single product by slug)
+route.get("/slug/:slug", GetProductBySlug);
 
 // api/products/add-product (Add a new product)
 route.post("/add-product", upload.array("images", 5), AddProducts);

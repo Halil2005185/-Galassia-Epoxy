@@ -1,10 +1,13 @@
 import express from "express";
-import { addCategory, deleteCategory, getAllCategories, updateCategory } from "../controllers/categoriesController.js";
+import { addCategory, deleteCategory, getAllCategories, getCategoryBySlug, updateCategory } from "../controllers/categoriesController.js";
 
 const route = express.Router();
 
 // api/categories (Get all categories)
 route.get("/" , getAllCategories);
+
+// api/categories/slug/:slug (Get a single category by slug)
+route.get("/slug/:slug", getCategoryBySlug);
 
 // api/categories/add-category (Add a new category)
 route.post("/add-category" , addCategory);

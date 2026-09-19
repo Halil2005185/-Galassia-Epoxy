@@ -1,4 +1,4 @@
-import mongoose, { Schema, Model } from "mongoose";
+import mongoose, { Schema, Model, Document } from "mongoose";
 import joi from "joi";
 import Joi from "joi";
 export interface ILocalizedText {
@@ -28,7 +28,7 @@ interface UpdateProductSchema {
   category: mongoose.Types.ObjectId;
 }
 
-export interface IProduct {
+export interface IProduct extends Document {
   name: ILocalizedText;
   description: ILocalizedText;
   slug: string;

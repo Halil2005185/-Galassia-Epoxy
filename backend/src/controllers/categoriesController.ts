@@ -9,6 +9,21 @@ export const getAllCategories = asyncHandler(
     },
 );
 
+export const getCategoryBySlug = asyncHandler(
+    async (req: Request, res: Response) => {
+        const slug = String(req.params.slug ?? "");
+
+        const category = await Category.findOne({ slug });
+
+        if (!category) {
+            res.status(404).json({ message: "Category not found" });
+            return;
+        }
+
+        res.status(200).json(category);
+    },
+);
+
 export const addCategory = asyncHandler(async (req: Request, res: Response) => {
     const { error } = categoryValidationSchema(req.body);
 

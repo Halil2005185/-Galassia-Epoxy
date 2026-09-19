@@ -1,11 +1,13 @@
-import mongoose, { Model } from "mongoose";import Joi from "joi";
+import mongoose, { Model, Document } from "mongoose";
+import Joi from "joi";
+
 export interface ILocalizedText {
   ar: string;
   en: string;
   tr: string;
 }
 
-export interface ICategory {
+export interface ICategory extends Document {
   name: ILocalizedText;
   slug: string;
   createdAt: Date;
