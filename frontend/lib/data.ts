@@ -37,6 +37,8 @@ export function getCollectionMeta(slug: string) {
   return collections.find((collection) => collection.slug === slug);
 }
 
+export const WHATSAPP_NUMBER = "905359285805";
+
 export function whatsappHref(message: string) {
-  return `https://wa.me/18005557346?text=${encodeURIComponent(message)}`;
+  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
 }

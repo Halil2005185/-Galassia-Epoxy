@@ -1,25 +1,18 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import PlaceholderImage from "@/components/PlaceholderImage";
-import { getProductMeta, products, whatsappHref } from "@/lib/data";
+import { getProductBySlug, getProducts } from "@/lib/api/products";
+import type { Category, Product } from "@/lib/api/types";
+import { whatsappHref } from "@/lib/data";
 import { getTranslation } from "@/lib/i18n/server";
 import { isValidLocale, languages, type Locale } from "@/lib/i18n/settings";
 
 export function generateStaticParams() {
-  return languages.flatMap((locale) =>
-    products.map((product) => ({ locale, slug: product.slug }))
-  );
+  return languages.map((locale) => ({ locale }));
 }
 
-type ProductItem = {
-  category: string;
-  badge: string;
-  title: string;
-  materials: string;
-  description: string;
-  availability: string;
-  specs: { label: string; value: string }[];
-};
+function categoryOf(product: Product): Category | null {
+  return typeof product.category === "string" ? null : product.category;
+}
 
 export async function generateMetadata({
   params,
@@ -28,11 +21,9 @@ export async function generateMetadata({
 }) {
   const { locale, slug } = await params;
   const lng: Locale = isValidLocale(locale) ? locale : "tr";
-  const meta = getProductMeta(slug);
-  if (!meta) return { title: "Piece Not Found" };
-  const { t } = await getTranslation(lng, "products");
-  const item = t(`items.${slug}`, { returnObjects: true }) as ProductItem;
-  return { title: `${item.title} | Galassia Epoxy Design` };
+  const product = await getProductBySlug(slug);
+  if (!product) return { title: "Piece Not Found" };
+  return { title: `${product.name[lng]} | Galassia Epoxy Design` };
 }
 
 export default async function ProductDetailPage({
@@ -44,17 +35,33 @@ export default async function ProductDetailPage({
   if (!isValidLocale(rawLocale)) notFound();
   const locale: Locale = rawLocale;
 
-  const meta = getProductMeta(slug);
-  if (!meta) notFound();
+  const product = await getProductBySlug(slug);
+  if (!product) notFound();
 
   const { t } = await getTranslation(locale, "products");
   const { t: tCommon } = await getTranslation(locale, "common");
-  const item = t(`items.${slug}`, { returnObjects: true }) as ProductItem;
 
-  const related = products
-    .filter((p) => p.categorySlug === meta.categorySlug && p.slug !== meta.slug)
-    .concat(products.filter((p) => p.slug !== meta.slug))
-    .slice(0, 3);
+  const category = categoryOf(product);
+  const title = product.name[locale];
+  const description = product.description[locale];
+  const [mainImage, ...restImages] = product.images;
+
+  let related: Product[] = [];
+  try {
+    const { products } = await getProducts(1, 100);
+    related = products
+      .filter((p) => p._id !== product._id)
+      .filter((p) => {
+        const c = categoryOf(p);
+        return category && c ? c._id === category._id : false;
+      })
+      .slice(0, 3);
+    if (related.length === 0) {
+      related = products.filter((p) => p._id !== product._id).slice(0, 3);
+    }
+  } catch {
+    related = [];
+  }
 
   return (
     <>
@@ -63,34 +70,40 @@ export default async function ProductDetailPage({
           <Link href={`/${locale}`} className="hover:text-ink">{tCommon("breadcrumbHome")}</Link>
           <span className="mx-2">/</span>
           <Link href={`/${locale}/products`} className="hover:text-ink">{t("page.breadcrumbProducts")}</Link>
+          {category && (
+            <>
+              <span className="mx-2">/</span>
+              <span className="text-ink">{category.name[locale]}</span>
+            </>
+          )}
           <span className="mx-2">/</span>
-          <span className="text-ink">{item.category}</span>
-          <span className="mx-2">/</span>
-          <span className="text-ink">{item.title}</span>
+          <span className="text-ink">{title}</span>
         </nav>
       </section>
 
       <section className="mx-auto max-w-[1440px] px-5 py-8 md:px-16">
         <div className="grid grid-cols-1 gap-10 lg:grid-cols-12">
           <div className="lg:col-span-7">
-            <div className="relative">
-              <PlaceholderImage
-                label={t("page.pieceRef", { ref: meta.ref })}
-                tone={meta.tone}
-                className="aspect-[4/3] w-full"
-              />
-              <span className="label-caps absolute bottom-3 right-3 bg-ink px-3 py-1 text-surface">
-                {t("page.certifiedOriginal")}
-              </span>
-            </div>
-            <div className="mt-4 grid grid-cols-3 gap-4">
-              {[t("page.mirrorPolish"), t("page.organicGrain"), t("page.detailLabel")].map((label) => (
-                <div key={label}>
-                  <PlaceholderImage label={label} tone={meta.tone} className="aspect-square w-full" />
-                  <p className="label-caps mt-2 text-center text-graphite">{label}</p>
+            <div className="relative aspect-[4/3] w-full overflow-hidden bg-canvas">
+              {mainImage ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img src={mainImage.url} alt={title} className="h-full w-full object-cover" />
+              ) : (
+                <div className="flex h-full w-full items-center justify-center">
+                  <span className="label-caps text-graphite">{title}</span>
                 </div>
-              ))}
+              )}
             </div>
+            {restImages.length > 0 && (
+              <div className="mt-4 grid grid-cols-3 gap-4">
+                {restImages.slice(0, 3).map((image) => (
+                  <div key={image.key} className="aspect-square w-full overflow-hidden bg-canvas">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src={image.url} alt={title} className="h-full w-full object-cover" />
+                  </div>
+                ))}
+              </div>
+            )}
             <div className="mt-6 grid grid-cols-1 gap-4 border-t border-border pt-6 sm:grid-cols-2">
               <div className="flex items-center gap-3">
                 <span className="flex h-9 w-9 flex-shrink-0 items-center justify-center border border-ink">
@@ -108,33 +121,18 @@ export default async function ProductDetailPage({
           </div>
 
           <div className="lg:col-span-5">
-            <p className="label-caps text-brass">{item.category}</p>
-            <span className="label-caps ml-2 border border-border px-2 py-1 align-middle text-graphite">
-              {item.badge}
-            </span>
+            {category && <p className="label-caps text-brass">{category.name[locale]}</p>}
             <h1 className="mt-4 font-display text-3xl leading-tight md:text-4xl">
-              {item.title}
+              {title}
             </h1>
             <div className="mt-4 h-px w-16 bg-brass" />
             <p className="mt-4 text-sm leading-6 text-graphite">
-              {item.description}
+              {description}
             </p>
-
-            <div className="mt-6 flex items-start gap-2 border border-border p-4">
-              <span className="mt-0.5 h-2 w-2 flex-shrink-0 bg-brass" />
-              <div>
-                <p className="text-sm text-ink">
-                  {t("page.availableRef", { ref: meta.ref })}
-                </p>
-                <p className="mt-1 text-xs leading-5 text-graphite">
-                  {item.availability}
-                </p>
-              </div>
-            </div>
 
             <div className="mt-6 flex flex-col gap-3">
               <a
-                href={whatsappHref(`Hi Galassia, I'd like to order / inquire about the ${item.title} (${meta.ref}).`)}
+                href={whatsappHref(t("page.sendOrderMessage", { title }))}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-primary label-caps"
@@ -142,7 +140,7 @@ export default async function ProductDetailPage({
                 {t("page.sendOrder")}
               </a>
               <a
-                href={whatsappHref(`Hi Galassia, I'd like to request a custom size or colorway for the ${item.title}.`)}
+                href={whatsappHref(t("page.requestCustomMessage", { title }))}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-secondary label-caps"
@@ -153,15 +151,6 @@ export default async function ProductDetailPage({
             <p className="mt-3 text-xs text-graphite">
               {t("page.responseTime")}
             </p>
-
-            <dl className="mt-8 divide-y divide-border border-t border-border">
-              {item.specs.map((spec) => (
-                <div key={spec.label} className="flex items-center justify-between gap-4 py-3 text-sm">
-                  <dt className="label-caps text-graphite">{spec.label}</dt>
-                  <dd className="text-right text-ink">{spec.value}</dd>
-                </div>
-              ))}
-            </dl>
           </div>
         </div>
       </section>
@@ -190,39 +179,50 @@ export default async function ProductDetailPage({
         </div>
       </section>
 
-      <section className="mx-auto max-w-[1440px] px-5 py-16 md:px-16">
-        <div className="flex items-end justify-between">
-          <div>
-            <p className="label-caps text-brass">{t("page.pairingsEyebrow")}</p>
-            <h2 className="mt-3 font-display text-3xl md:text-4xl">
-              {t("page.pairingsTitle")}
-            </h2>
+      {related.length > 0 && (
+        <section className="mx-auto max-w-[1440px] px-5 py-16 md:px-16">
+          <div className="flex items-end justify-between">
+            <div>
+              <p className="label-caps text-brass">{t("page.pairingsEyebrow")}</p>
+              <h2 className="mt-3 font-display text-3xl md:text-4xl">
+                {t("page.pairingsTitle")}
+              </h2>
+            </div>
+            <Link href={`/${locale}/products`} className="link-arrow label-caps hidden sm:inline-flex">
+              <span>{t("page.viewFullCatalog")}</span>
+              <span>&rarr;</span>
+            </Link>
           </div>
-          <Link href={`/${locale}/products`} className="link-arrow label-caps hidden sm:inline-flex">
-            <span>{t("page.viewFullCatalog")}</span>
-            <span>&rarr;</span>
-          </Link>
-        </div>
-        <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-3">
-          {related.map((relatedMeta) => {
-            const relatedItem = t(`items.${relatedMeta.slug}`, { returnObjects: true }) as ProductItem;
-            return (
-              <Link key={relatedMeta.slug} href={`/${locale}/products/${relatedMeta.slug}`} className="group block border border-border">
-                <PlaceholderImage
-                  label={relatedItem.category}
-                  tone={relatedMeta.tone}
-                  className="aspect-[4/3] w-full transition-transform duration-300 group-hover:scale-[1.02]"
-                />
-                <div className="p-5">
-                  <p className="label-caps text-brass">{relatedItem.badge}</p>
-                  <h3 className="mt-2 font-display text-lg leading-snug">{relatedItem.title}</h3>
-                  <p className="mt-2 text-sm text-graphite">{relatedMeta.dimensions}</p>
-                </div>
-              </Link>
-            );
-          })}
-        </div>
-      </section>
+          <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-3">
+            {related.map((item) => {
+              const itemCategory = categoryOf(item);
+              const itemCover = item.images[0];
+              return (
+                <Link key={item._id} href={`/${locale}/products/${item.slug}`} className="group block border border-border">
+                  <div className="relative aspect-[4/3] w-full overflow-hidden bg-canvas">
+                    {itemCover ? (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img
+                        src={itemCover.url}
+                        alt={item.name[locale]}
+                        className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.02]"
+                      />
+                    ) : (
+                      <div className="flex h-full w-full items-center justify-center">
+                        <span className="label-caps text-graphite">{item.name[locale]}</span>
+                      </div>
+                    )}
+                  </div>
+                  <div className="p-5">
+                    {itemCategory && <p className="label-caps text-brass">{itemCategory.name[locale]}</p>}
+                    <h3 className="mt-2 font-display text-lg leading-snug">{item.name[locale]}</h3>
+                  </div>
+                </Link>
+              );
+            })}
+          </div>
+        </section>
+      )}
     </>
   );
 }

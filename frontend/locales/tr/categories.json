@@ -17,6 +17,9 @@
     "ctaDescription": "Baş sanatçımız ve ahşap teknisyenlerimiz iç mimarlar, mimarlar ve özel müşterilerle doğrudan çalışır. Anında danışmanlık için mekan eskizlerinizi, boya örneklerinizi veya kereste tercihlerinizi gönderin.",
     "requestLookbook": "Dijital Katalog İste",
     "commissionSpecs": "Sipariş Detayları",
+    "commissionSpecsMessage": "Merhaba Galassia, {{title}} için sipariş detaylarını görüşmek istiyorum.",
+    "customDimensionMessage": "Merhaba Galassia, özel bir ölçü / pigment siparişini görüşmek istiyorum.",
+    "collectionInquiryMessage": "Merhaba Galassia, {{title}} koleksiyonu hakkında bilgi almak istiyorum.",
     "breadcrumbCategories": "Kategoriler",
     "piecesInCollection": "Bu Koleksiyondaki Parçalar"
   },

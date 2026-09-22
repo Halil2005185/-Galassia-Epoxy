@@ -71,7 +71,7 @@ export default async function AboutPage({
             </h2>
           </div>
           <a
-            href={whatsappHref("Hi Galassia, I'd like to learn more about the studio.")}
+            href={whatsappHref(t("whatsappMessage"))}
             target="_blank"
             rel="noopener noreferrer"
             className="label-caps flex-shrink-0 bg-brass px-8 py-4 text-center text-ink"

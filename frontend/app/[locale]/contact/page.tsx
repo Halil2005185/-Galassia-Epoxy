@@ -53,7 +53,7 @@ export default async function ContactPage({
         <div className="space-y-6 lg:col-span-5">
           <div className="border border-border p-6">
             <p className="label-caps text-graphite">{t("directLineLabel")}</p>
-            <p className="mt-2 font-display text-xl">+1 (800) 555-RESIN</p>
+            <p className="mt-2 font-display text-xl" dir="ltr">+90 535 928 58 05</p>
             <p className="mt-1 text-sm text-graphite">{t("hours")}</p>
           </div>
           <div className="border border-border p-6">

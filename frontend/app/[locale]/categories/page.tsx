@@ -111,7 +111,7 @@ export default async function CategoriesPage({
                     {item.ctaLabel}
                   </Link>
                   <a
-                    href={whatsappHref(`Hi Galassia, I'd like to discuss commission specs for ${item.title}.`)}
+                    href={whatsappHref(t("page.commissionSpecsMessage", { title: item.title }))}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="label-caps border border-ink px-6 py-3"
@@ -147,7 +147,7 @@ export default async function CategoriesPage({
           </div>
           <div className="flex flex-shrink-0 flex-col gap-3 sm:flex-row">
             <a
-              href={whatsappHref("Hi Galassia, I'd like to discuss a custom dimension / pigment commission.")}
+              href={whatsappHref(t("page.customDimensionMessage"))}
               target="_blank"
               rel="noopener noreferrer"
               className="label-caps bg-brass px-8 py-4 text-center text-ink"

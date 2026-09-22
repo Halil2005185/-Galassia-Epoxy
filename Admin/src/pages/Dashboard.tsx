@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import CategoriesPage from "./CategoriesPage";
 import ProductsPage from "./ProductsPage";
-import { listCategories, listProducts } from "../lib/store";
+import { getProducts } from "../api/products";
+import { getAllCategories } from "../api/categories";
 
 type View = "overview" | "products" | "categories";
 
@@ -20,9 +21,30 @@ const VIEW_TITLES: Record<View, string> = {
 export default function Dashboard({ onLogout }: { onLogout: () => void }) {
   const [active, setActive] = useState<View>("overview");
   const [counts, setCounts] = useState({ products: 0, categories: 0 });
+  const [connected, setConnected] = useState<boolean | null>(null);
 
   useEffect(() => {
-    setCounts({ products: listProducts().length, categories: listCategories().length });
+    let cancelled = false;
+
+    async function loadCounts() {
+      try {
+        const [productList, categoryList] = await Promise.all([
+          getProducts(1, 1),
+          getAllCategories(),
+        ]);
+        if (cancelled) return;
+        setCounts({ products: productList.total, categories: categoryList.length });
+        setConnected(true);
+      } catch {
+        if (cancelled) return;
+        setConnected(false);
+      }
+    }
+
+    loadCounts();
+    return () => {
+      cancelled = true;
+    };
   }, [active]);
 
   return (
@@ -102,26 +124,24 @@ export default function Dashboard({ onLogout }: { onLogout: () => void }) {
                 </div>
                 <div className="border border-border bg-surface p-6">
                   <p className="label-caps text-graphite">حالة الاتصال بالخادم</p>
-                  <p className="mt-2 font-display text-2xl">غير متصل</p>
+                  <p className="mt-2 font-display text-2xl">
+                    {connected === null ? "جارٍ التحقق…" : connected ? "متصل" : "غير متصل"}
+                  </p>
                 </div>
               </div>
 
               <div className="mt-8 border border-border bg-surface p-8">
-                <p className="label-caps text-brass">بيانات محلية مؤقتة</p>
+                <p className="label-caps text-brass">ملاحظة</p>
                 <h2 className="mt-2 font-display text-xl">
-                  البيانات هنا مخزّنة في المتصفح فقط
+                  تسجيل الدخول لا يزال محليًا فقط
                 </h2>
                 <p className="mt-3 max-w-xl text-sm leading-6 text-graphite">
-                  الخادم الخلفي لا يزال يحتوي على نماذج{" "}
+                  الفئات والمنتجات متصلة الآن بالخادم الخلفي الحقيقي عبر{" "}
                   <code className="border border-border bg-canvas px-1.5 py-0.5 text-xs" dir="ltr">
-                    Product
-                  </code>{" "}
-                  و{" "}
-                  <code className="border border-border bg-canvas px-1.5 py-0.5 text-xs" dir="ltr">
-                    Category
-                  </code>{" "}
-                  فقط، دون مسارات API حقيقية أو تسجيل دخول فعلي. كل ما تضيفه من فئات ومنتجات هنا
-                  يُحفظ مؤقتًا داخل متصفحك، وسيُستبدل بربط حقيقي بالخادم لاحقًا.
+                    axios
+                  </code>
+                  . أما تسجيل الدخول في هذه الصفحة فلا يزال محاكاة محلية فقط، لأن الخادم لا يحتوي
+                  بعد على نموذج مستخدم أو مسارات تسجيل دخول حقيقية.
                 </p>
               </div>
             </div>

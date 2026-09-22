@@ -23,7 +23,7 @@ export type Product = {
   description: LocalizedText;
   slug: string;
   images: ProductImage[];
-  // Populated (an object) on list/detail responses, a plain id string on create/update responses.
+  // Populated (an object) on list/detail responses from the backend.
   category: Category | string;
   createdAt: string;
   updatedAt: string;
@@ -34,8 +34,4 @@ export type ProductListResponse = {
   total: number;
   page: number;
   pages: number;
-};
-
-export type ApiErrorBody = {
-  message: string;
 };

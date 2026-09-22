@@ -20,7 +20,8 @@
   "masterworks": {
     "eyebrow": "Exhibition Showcase",
     "title": "Masterwork Creations",
-    "description": "One-of-a-kind art pieces crafted in limited studio runs. Reserved for collectors and architectural spaces."
+    "description": "One-of-a-kind art pieces crafted in limited studio runs. Reserved for collectors and architectural spaces.",
+    "whatsappMessage": "Hi Galassia, I'm interested in the {{title}}."
   },
   "philosophy": {
     "eyebrow": "Philosophy & Mastery",

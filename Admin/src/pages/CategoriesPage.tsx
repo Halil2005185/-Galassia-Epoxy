@@ -1,20 +1,38 @@
 import { useEffect, useState } from "react";
 import type { Category, LocalizedText } from "../types";
-import { createCategory, deleteCategory, listCategories, slugify, SLUG_PATTERN } from "../lib/store";
+import { addCategory, deleteCategory, getAllCategories } from "../api/categories";
+import { getApiErrorMessage } from "../api/client";
+import { slugify, SLUG_PATTERN } from "../lib/slug";
 import LocalizedTextInput from "../components/LocalizedTextInput";
 
 const EMPTY_NAME: LocalizedText = { ar: "", en: "", tr: "" };
 
 export default function CategoriesPage() {
   const [categories, setCategories] = useState<Category[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [loadError, setLoadError] = useState<string | null>(null);
+
   const [showForm, setShowForm] = useState(false);
   const [name, setName] = useState<LocalizedText>(EMPTY_NAME);
   const [slug, setSlug] = useState("");
   const [slugTouched, setSlugTouched] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [saving, setSaving] = useState(false);
+
+  async function loadCategories() {
+    setLoading(true);
+    setLoadError(null);
+    try {
+      setCategories(await getAllCategories());
+    } catch (err) {
+      setLoadError(getApiErrorMessage(err, "تعذر تحميل الفئات."));
+    } finally {
+      setLoading(false);
+    }
+  }
 
   useEffect(() => {
-    setCategories(listCategories());
+    loadCategories();
   }, []);
 
   useEffect(() => {
@@ -29,9 +47,10 @@ export default function CategoriesPage() {
     setShowForm(false);
   }
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setError(null);
+
     if (!name.ar || !name.en || !name.tr) {
       setError("الاسم مطلوب باللغات الثلاث.");
       return;
@@ -40,18 +59,26 @@ export default function CategoriesPage() {
       setError("الرابط المختصر يجب أن يتكوّن من أحرف إنجليزية صغيرة وأرقام وشرطات فقط.");
       return;
     }
+
+    setSaving(true);
     try {
-      createCategory({ name, slug });
-      setCategories(listCategories());
+      await addCategory({ name, slug });
+      await loadCategories();
       resetForm();
     } catch (err) {
-      setError(err instanceof Error ? err.message : "تعذر حفظ الفئة.");
+      setError(getApiErrorMessage(err, "تعذر حفظ الفئة."));
+    } finally {
+      setSaving(false);
     }
   }
 
-  function handleDelete(id: string) {
-    deleteCategory(id);
-    setCategories(listCategories());
+  async function handleDelete(id: string) {
+    try {
+      await deleteCategory(id);
+      await loadCategories();
+    } catch (err) {
+      setLoadError(getApiErrorMessage(err, "تعذر حذف الفئة."));
+    }
   }
 
   return (
@@ -92,8 +119,8 @@ export default function CategoriesPage() {
           )}
 
           <div className="flex gap-3">
-            <button type="submit" className="btn-primary label-caps">
-              حفظ الفئة
+            <button type="submit" disabled={saving} className="btn-primary label-caps">
+              {saving ? "جارٍ الحفظ…" : "حفظ الفئة"}
             </button>
             <button type="button" onClick={resetForm} className="btn-secondary label-caps">
               إلغاء
@@ -102,8 +129,14 @@ export default function CategoriesPage() {
         </form>
       )}
 
+      {loadError && (
+        <p className="mt-6 border border-border bg-surface px-4 py-3 text-sm text-ink">{loadError}</p>
+      )}
+
       <div className="mt-6 border border-border bg-surface">
-        {categories.length === 0 ? (
+        {loading ? (
+          <p className="p-8 text-center text-sm text-graphite">جارٍ التحميل…</p>
+        ) : categories.length === 0 ? (
           <p className="p-8 text-center text-sm text-graphite">لا توجد فئات بعد.</p>
         ) : (
           <table className="w-full text-sm">
@@ -117,7 +150,7 @@ export default function CategoriesPage() {
             </thead>
             <tbody>
               {categories.map((category) => (
-                <tr key={category.id} className="border-b border-border last:border-b-0">
+                <tr key={category._id} className="border-b border-border last:border-b-0">
                   <td className="px-4 py-3">{category.name.ar}</td>
                   <td className="px-4 py-3 text-graphite" dir="ltr">
                     {category.name.en}
@@ -128,7 +161,7 @@ export default function CategoriesPage() {
                   <td className="px-4 py-3">
                     <button
                       type="button"
-                      onClick={() => handleDelete(category.id)}
+                      onClick={() => handleDelete(category._id)}
                       className="label-caps text-graphite hover:text-ink"
                     >
                       حذف

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { Playfair_Display, Plus_Jakarta_Sans } from "next/font/google";
+import { Playfair_Display, Plus_Jakarta_Sans, Amiri, Cairo } from "next/font/google";
 import "../globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -15,6 +15,22 @@ const playfair = Playfair_Display({
 const jakarta = Plus_Jakarta_Sans({
   variable: "--font-jakarta",
   subsets: ["latin"],
+});
+
+// Playfair Display / Plus Jakarta Sans have no Arabic glyphs, so Arabic text
+// silently falls back to a generic system font at a different visual size
+// than the Latin webfonts. These provide real Arabic coverage for the same
+// display/body roles — swapped in for `:lang(ar)` in globals.css.
+const amiri = Amiri({
+  variable: "--font-amiri",
+  subsets: ["arabic"],
+  weight: ["400", "700"],
+});
+
+const cairo = Cairo({
+  variable: "--font-cairo",
+  subsets: ["arabic"],
+  weight: ["300", "400", "500", "600", "700"],
 });
 
 export function generateStaticParams() {
@@ -58,6 +74,7 @@ export default async function LocaleLayout({
       contact: t("nav.contact"),
     },
     chatWhatsapp: t("chatWhatsapp"),
+    whatsappOpener: t("whatsappOpener"),
     account: t("account"),
     openMenu: t("openMenu"),
     closeMenu: t("closeMenu"),
@@ -68,7 +85,7 @@ export default async function LocaleLayout({
     <html
       lang={locale}
       dir={dir}
-      className={`${playfair.variable} ${jakarta.variable} h-full antialiased`}
+      className={`${playfair.variable} ${jakarta.variable} ${amiri.variable} ${cairo.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-canvas text-ink font-body">
         <Header locale={locale} t={headerText} />

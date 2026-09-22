@@ -9,6 +9,7 @@ import {
   localeLabels,
   type Locale,
 } from "@/lib/i18n/settings";
+import { whatsappHref } from "@/lib/data";
 
 type HeaderText = {
   banner: string;
@@ -20,6 +21,7 @@ type HeaderText = {
     contact: string;
   };
   chatWhatsapp: string;
+  whatsappOpener: string;
   account: string;
   openMenu: string;
   closeMenu: string;
@@ -140,7 +142,7 @@ export default function Header({
             </div>
 
             <a
-              href="https://wa.me/18005557346"
+              href={whatsappHref(t.whatsappOpener)}
               target="_blank"
               rel="noopener noreferrer"
               className="btn-primary label-caps hidden sm:inline-flex"
@@ -217,7 +219,7 @@ export default function Header({
               ))}
             </div>
             <a
-              href="https://wa.me/18005557346"
+              href={whatsappHref(t.whatsappOpener)}
               target="_blank"
               rel="noopener noreferrer"
               className="btn-primary label-caps mt-4 w-full sm:hidden"

@@ -20,7 +20,8 @@
   "masterworks": {
     "eyebrow": "Sergi Vitrini",
     "title": "Başyapıt Eserler",
-    "description": "Sınırlı atölye üretimiyle hazırlanan eşsiz sanat eserleri. Koleksiyonerlere ve mimari mekanlara ayrılmıştır."
+    "description": "Sınırlı atölye üretimiyle hazırlanan eşsiz sanat eserleri. Koleksiyonerlere ve mimari mekanlara ayrılmıştır.",
+    "whatsappMessage": "Merhaba Galassia, {{title}} ile ilgileniyorum."
   },
   "philosophy": {
     "eyebrow": "Felsefe & Ustalık",

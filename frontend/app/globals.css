@@ -33,6 +33,24 @@ body {
   border-radius: 0 !important;
 }
 
+/* Playfair Display / Plus Jakarta Sans have no Arabic glyphs, so Arabic text
+   falls back to a generic system font at a different visual size/weight
+   than the Latin webfonts — this swaps in real Arabic typefaces instead. */
+:root:lang(ar) {
+  --font-display: var(--font-amiri);
+  --font-body: var(--font-cairo);
+}
+
+/* Uppercase + wide letter-spacing are Latin conventions: Arabic has no
+   letter case, and added tracking breaks the cursive joining between
+   letters. Also compensates for Cairo/Amiri reading slightly smaller
+   than Playfair/Jakarta at the same declared size. */
+:lang(ar) .label-caps {
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: 13px;
+}
+
 @layer components {
   .label-caps {
     font-family: var(--font-body);

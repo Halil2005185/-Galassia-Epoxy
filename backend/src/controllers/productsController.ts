@@ -3,6 +3,25 @@ import Product, { productValidationSchema, UpdateProductValidationSchema, type I
 import asyncHandler from "express-async-handler";
 import type { } from "multer";
 import { deleteFile, uploadFile } from "../config/r2.js";
+
+// multipart/form-data (required for file uploads) can only carry flat string
+// fields, so the client JSON-stringifies the localized `name`/`description`
+// objects. Parse them back before they reach Joi/Mongoose. A plain JSON
+// request (no files) already has real objects here, so this is a no-op then.
+// Returns an error message on malformed JSON, or null on success.
+function parseLocalizedFields(body: Record<string, unknown>): string | null {
+    for (const field of ["name", "description"] as const) {
+        if (typeof body[field] === "string") {
+            try {
+                body[field] = JSON.parse(body[field] as string);
+            } catch {
+                return `Invalid JSON in "${field}" field.`;
+            }
+        }
+    }
+    return null;
+}
+
 export const GetProducts = asyncHandler(
     async (req: Request, res: Response) => {
         const { page = 1, limit = 10 } = req.query;
@@ -41,6 +60,12 @@ export const GetProductBySlug = asyncHandler(
 
 
 export const AddProducts = asyncHandler(async (req: Request, res: Response) => {
+    const parseError = parseLocalizedFields(req.body);
+    if (parseError) {
+        res.status(400).json({ message: parseError });
+        return;
+    }
+
     const { error } = productValidationSchema(req.body);
 
     if (error) {
@@ -75,6 +100,12 @@ export const AddProducts = asyncHandler(async (req: Request, res: Response) => {
 
 export const UpdateProducts = asyncHandler(
     async (req: Request, res: Response) => {
+        const parseError = parseLocalizedFields(req.body);
+        if (parseError) {
+            res.status(400).json({ message: parseError });
+            return;
+        }
+
         const { error } = UpdateProductValidationSchema(req.body);
 
         if (error) {

@@ -129,7 +129,7 @@ export default async function CategoryDetailPage({
             </h2>
           </div>
           <a
-            href={whatsappHref(`Hi Galassia, I'd like to inquire about the ${item.title} collection.`)}
+            href={whatsappHref(t("page.collectionInquiryMessage", { title: item.title }))}
             target="_blank"
             rel="noopener noreferrer"
             className="label-caps flex-shrink-0 bg-brass px-8 py-4 text-center text-ink"

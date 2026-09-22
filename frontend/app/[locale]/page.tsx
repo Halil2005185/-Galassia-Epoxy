@@ -1,12 +1,20 @@
 import Link from "next/link";
 import PlaceholderImage from "@/components/PlaceholderImage";
-import { collections, products, whatsappHref } from "@/lib/data";
+import HeroCrossfade from "@/components/HeroCrossfade";
+import { collections, whatsappHref } from "@/lib/data";
+import { getProducts } from "@/lib/api/products";
+import type { Category, Product } from "@/lib/api/types";
 import { getTranslation } from "@/lib/i18n/server";
 import { isValidLocale, type Locale } from "@/lib/i18n/settings";
 import { notFound } from "next/navigation";
 
 type Stat = { value: string; label: string };
 type Step = { number: string; title: string; body: string };
+
+function categoryLabel(category: Category | string, locale: Locale) {
+  if (typeof category === "string") return category;
+  return category.name[locale];
+}
 
 export default async function Home({
   params,
@@ -19,12 +27,22 @@ export default async function Home({
 
   const { t } = await getTranslation(locale, "home");
   const { t: tCategories } = await getTranslation(locale, "categories");
-  const { t: tProducts } = await getTranslation(locale, "products");
   const { t: tActions } = await getTranslation(locale, "common");
 
   const stats = t("hero.stats", { returnObjects: true }) as Stat[];
   const steps = t("philosophy.steps", { returnObjects: true }) as Step[];
-  const masterworks = products.slice(1, 4);
+
+  let masterworks: Product[] = [];
+  try {
+    const response = await getProducts(1, 6);
+    masterworks = response.products;
+  } catch {
+    masterworks = [];
+  }
+
+  const heroImages = masterworks
+    .flatMap((product) => product.images.map((image) => image.url))
+    .slice(0, 6);
 
   return (
     <>
@@ -63,11 +81,15 @@ export default async function Home({
           </div>
 
           <div className="lg:col-span-7">
-            <PlaceholderImage
-              label={t("hero.imageCaption")}
-              tone="olive"
-              className="aspect-[4/3] w-full"
-            />
+            {heroImages.length > 0 ? (
+              <HeroCrossfade images={heroImages} alt={t("hero.imageCaption")} />
+            ) : (
+              <PlaceholderImage
+                label={t("hero.imageCaption")}
+                tone="olive"
+                className="aspect-[4/3] w-full"
+              />
+            )}
           </div>
         </div>
       </section>
@@ -120,59 +142,65 @@ export default async function Home({
       </section>
 
       {/* Masterwork Creations */}
-      <section className="border-t border-border bg-surface">
-        <div className="mx-auto max-w-[1440px] px-5 py-16 text-center md:px-16">
-          <p className="label-caps text-brass">{t("masterworks.eyebrow")}</p>
-          <h2 className="mt-3 font-display text-3xl md:text-4xl">
-            {t("masterworks.title")}
-          </h2>
-          <p className="mx-auto mt-4 max-w-xl text-sm leading-6 text-graphite">
-            {t("masterworks.description")}
-          </p>
+      {masterworks.length > 0 && (
+        <section className="border-t border-border bg-surface">
+          <div className="mx-auto max-w-[1440px] px-5 py-16 text-center md:px-16">
+            <p className="label-caps text-brass">{t("masterworks.eyebrow")}</p>
+            <h2 className="mt-3 font-display text-3xl md:text-4xl">
+              {t("masterworks.title")}
+            </h2>
+            <p className="mx-auto mt-4 max-w-xl text-sm leading-6 text-graphite">
+              {t("masterworks.description")}
+            </p>
 
-          <div className="mt-10 grid grid-cols-1 gap-6 text-left sm:grid-cols-2 lg:grid-cols-3">
-            {masterworks.map((product) => {
-              const item = tProducts(`items.${product.slug}`, {
-                returnObjects: true,
-              }) as { title: string; category: string; badge: string };
-              return (
-                <div key={product.slug} className="border border-border">
-                  <PlaceholderImage
-                    label={item.badge}
-                    tone={product.tone}
-                    className="aspect-[4/5] w-full"
-                  />
-                  <div className="p-5">
-                    <p className="label-caps text-brass">{item.category}</p>
-                    <h3 className="mt-2 font-display text-lg leading-snug">
-                      {item.title}
-                    </h3>
-                    <p className="mt-2 text-sm text-graphite">
-                      {product.dimensions}
-                    </p>
-                    <div className="mt-5 flex gap-3">
-                      <Link
-                        href={`/${locale}/products/${product.slug}`}
-                        className="label-caps flex-1 border border-ink px-4 py-3 text-center transition-colors hover:bg-ink hover:text-surface"
-                      >
-                        {tActions("actions.viewDetails")}
-                      </Link>
-                      <a
-                        href={whatsappHref(`Hi Galassia, I'm interested in the ${item.title}.`)}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="label-caps flex-1 bg-ink px-4 py-3 text-center text-surface"
-                      >
-                        {tActions("actions.whatsappInquire")}
-                      </a>
+            <div className="mt-10 grid grid-cols-1 gap-6 text-left sm:grid-cols-2 lg:grid-cols-3">
+              {masterworks.slice(0, 3).map((product) => {
+                const title = product.name[locale];
+                const cover = product.images[0];
+                return (
+                  <div key={product._id} className="border border-border">
+                    <div className="relative aspect-[4/5] w-full overflow-hidden bg-canvas">
+                      {cover ? (
+                        // eslint-disable-next-line @next/next/no-img-element
+                        <img src={cover.url} alt={title} className="h-full w-full object-cover" />
+                      ) : (
+                        <div className="flex h-full w-full items-center justify-center">
+                          <span className="label-caps text-graphite">{title}</span>
+                        </div>
+                      )}
+                    </div>
+                    <div className="p-5">
+                      <p className="label-caps text-brass">{categoryLabel(product.category, locale)}</p>
+                      <h3 className="mt-2 font-display text-lg leading-snug">
+                        {title}
+                      </h3>
+                      <p className="mt-2 text-sm leading-6 text-graphite">
+                        {product.description[locale]}
+                      </p>
+                      <div className="mt-5 flex gap-3">
+                        <Link
+                          href={`/${locale}/products/${product.slug}`}
+                          className="label-caps flex-1 border border-ink px-4 py-3 text-center transition-colors hover:bg-ink hover:text-surface"
+                        >
+                          {tActions("actions.viewDetails")}
+                        </Link>
+                        <a
+                          href={whatsappHref(t("masterworks.whatsappMessage", { title }))}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="label-caps flex-1 bg-ink px-4 py-3 text-center text-surface"
+                        >
+                          {tActions("actions.whatsappInquire")}
+                        </a>
+                      </div>
                     </div>
                   </div>
-                </div>
-              );
-            })}
+                );
+              })}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* Philosophy */}
       <section className="border-t border-border">

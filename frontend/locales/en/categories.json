@@ -17,6 +17,9 @@
     "ctaDescription": "Our principal artist and wood technicians collaborate directly with interior designers, architects, and private clients. Send your spatial sketches, paint swatches, or timber preferences for immediate consultation.",
     "requestLookbook": "Request Digital Lookbook",
     "commissionSpecs": "Commission Specs",
+    "commissionSpecsMessage": "Hi Galassia, I'd like to discuss commission specs for {{title}}.",
+    "customDimensionMessage": "Hi Galassia, I'd like to discuss a custom dimension / pigment commission.",
+    "collectionInquiryMessage": "Hi Galassia, I'd like to inquire about the {{title}} collection.",
     "breadcrumbCategories": "Categories",
     "piecesInCollection": "Pieces in this Collection"
   },
