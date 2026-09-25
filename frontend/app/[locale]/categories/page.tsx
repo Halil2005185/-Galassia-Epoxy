@@ -145,7 +145,7 @@ export default async function CategoriesPage({
               {t("page.ctaDescription")}
             </p>
           </div>
-          <div className="flex flex-shrink-0 flex-col gap-3 sm:flex-row">
+          <div className="flex flex-shrink-0 flex-col gap-3 lg:flex-row">
             <a
               href={whatsappHref(t("page.customDimensionMessage"))}
               target="_blank"

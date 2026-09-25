@@ -15,19 +15,27 @@ const s3 = new S3Client({
 
 export const uploadFile = async (
   fileBuffer: Buffer,
-  key: string
+  key: string,
+  contentType?: string
 ) => {
   await s3.send(
     new PutObjectCommand({
       Bucket: process.env.R2_BUCKET_NAME,
       Key: key,
       Body: fileBuffer,
+      // Without this, R2 serves the object as application/octet-stream,
+      // which browsers download instead of displaying inline.
+      ContentType: contentType,
     })
   );
 
   return {
     key,
-    url: `${process.env.R2_PUBLIC_URL}/${key}`,
+    // Spaces and other special characters in the original filename are
+    // valid in an S3/R2 object key but break an unencoded URL (the browser
+    // truncates at the first space) — encode each path segment, not the
+    // "/" separators.
+    url: `${process.env.R2_PUBLIC_URL}/${key.split("/").map(encodeURIComponent).join("/")}`,
   };
 };
 export const deleteFile = async (key: string) => {

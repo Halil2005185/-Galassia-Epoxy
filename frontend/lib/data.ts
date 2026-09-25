@@ -39,9 +39,17 @@ export function getCollectionMeta(slug: string) {
 
 export const WHATSAPP_NUMBER = "905359285805";
 
-export function whatsappHref(message: string, imageUrl?: string) {
-  // wa.me can't attach a file directly — appending the image URL lets
-  // WhatsApp unfurl it into a link preview inside the pre-filled message.
-  const fullMessage = imageUrl ? `${message}\n${imageUrl}` : message;
+export function siteUrl() {
+  return process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+}
+
+export function productPageUrl(locale: string, slug: string) {
+  return `${siteUrl()}/${locale}/products/${slug}`;
+}
+
+export function whatsappHref(message: string, linkUrl?: string) {
+  // Appending a link (the product page, not the image) lets the recipient
+  // tap straight through to the product instead of just seeing a photo.
+  const fullMessage = linkUrl ? `${message}\n${linkUrl}` : message;
   return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(fullMessage)}`;
 }

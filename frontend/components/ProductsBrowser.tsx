@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from "react";
 import Link from "next/link";
-import { whatsappHref } from "@/lib/data";
+import { productPageUrl, whatsappHref } from "@/lib/data";
 import type { Category, Product } from "@/lib/api/types";
 import type { Locale } from "@/lib/i18n/settings";
 
@@ -166,7 +166,7 @@ export default function ProductsBrowser({
                         <span>&rarr;</span>
                       </Link>
                       <a
-                        href={whatsappHref(t.cardWhatsappMessage.replace("{{title}}", title), cover?.url)}
+                        href={whatsappHref(t.cardWhatsappMessage.replace("{{title}}", title), productPageUrl(locale, product.slug))}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="label-caps ml-auto bg-ink px-4 py-2 text-surface"

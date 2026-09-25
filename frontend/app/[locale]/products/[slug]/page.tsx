@@ -2,7 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getProductBySlug, getProducts } from "@/lib/api/products";
 import type { Category, Product } from "@/lib/api/types";
-import { whatsappHref } from "@/lib/data";
+import { productPageUrl, whatsappHref } from "@/lib/data";
 import { getTranslation } from "@/lib/i18n/server";
 import { isValidLocale, languages, type Locale } from "@/lib/i18n/settings";
 
@@ -132,7 +132,7 @@ export default async function ProductDetailPage({
 
             <div className="mt-6 flex flex-col gap-3">
               <a
-                href={whatsappHref(t("page.sendOrderMessage", { title }), mainImage?.url)}
+                href={whatsappHref(t("page.sendOrderMessage", { title }), productPageUrl(locale, product.slug))}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-primary label-caps"
@@ -140,7 +140,7 @@ export default async function ProductDetailPage({
                 {t("page.sendOrder")}
               </a>
               <a
-                href={whatsappHref(t("page.requestCustomMessage", { title }), mainImage?.url)}
+                href={whatsappHref(t("page.requestCustomMessage", { title }), productPageUrl(locale, product.slug))}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-secondary label-caps"

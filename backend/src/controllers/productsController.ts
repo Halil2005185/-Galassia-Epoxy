@@ -9,6 +9,13 @@ import { deleteFile, uploadFile } from "../config/r2.js";
 // objects. Parse them back before they reach Joi/Mongoose. A plain JSON
 // request (no files) already has real objects here, so this is a no-op then.
 // Returns an error message on malformed JSON, or null on success.
+// Keeps R2 object keys (and therefore the public URLs built from them)
+// free of spaces and other characters that are awkward in a URL, even
+// though S3/R2 itself would accept them in a key.
+function sanitizeFilename(name: string): string {
+    return name.replace(/[^a-zA-Z0-9.-]+/g, "-");
+}
+
 function parseLocalizedFields(body: Record<string, unknown>): string | null {
     for (const field of ["name", "description"] as const) {
         if (typeof body[field] === "string") {
@@ -81,7 +88,8 @@ export const AddProducts = asyncHandler(async (req: Request, res: Response) => {
         files.map((file) =>
             uploadFile(
                 file.buffer,
-                `products/${Date.now()}-${file.originalname}`
+                `products/${Date.now()}-${sanitizeFilename(file.originalname)}`,
+                file.mimetype
             )
         )
     );
@@ -136,7 +144,8 @@ export const UpdateProducts = asyncHandler(
                 files.map((file) =>
                     uploadFile(
                         file.buffer,
-                        `products/${Date.now()}-${file.originalname}`
+                        `products/${Date.now()}-${sanitizeFilename(file.originalname)}`,
+                        file.mimetype
                     )
                 )
             );

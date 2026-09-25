@@ -1,7 +1,7 @@
 import Link from "next/link";
 import PlaceholderImage from "@/components/PlaceholderImage";
 import HeroCrossfade from "@/components/HeroCrossfade";
-import { whatsappHref } from "@/lib/data";
+import { productPageUrl, whatsappHref } from "@/lib/data";
 import { getProducts } from "@/lib/api/products";
 import type { Category, Product } from "@/lib/api/types";
 import { getTranslation } from "@/lib/i18n/server";
@@ -137,7 +137,7 @@ export default async function Home({
                           {tActions("actions.viewDetails")}
                         </Link>
                         <a
-                          href={whatsappHref(t("masterworks.whatsappMessage", { title }), cover?.url)}
+                          href={whatsappHref(t("masterworks.whatsappMessage", { title }), productPageUrl(locale, product.slug))}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="label-caps flex-1 bg-ink px-4 py-3 text-center text-surface"
@@ -188,7 +188,7 @@ export default async function Home({
               {t("cta.description")}
             </p>
           </div>
-          <div className="flex flex-shrink-0 flex-col gap-3 sm:flex-row">
+          <div className="flex flex-shrink-0 flex-col gap-3 lg:flex-row">
             <a
               href={whatsappHref(t("cta.startDiscussion"))}
               target="_blank"
