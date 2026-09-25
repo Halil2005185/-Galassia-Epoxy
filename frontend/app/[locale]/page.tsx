@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import PlaceholderImage from "@/components/PlaceholderImage";
 import HeroCrossfade from "@/components/HeroCrossfade";
+import { isR2DevUrl } from "@/lib/images";
 import { productPageUrl, whatsappHref } from "@/lib/data";
 import { getProducts } from "@/lib/api/products";
 import type { Category, Product } from "@/lib/api/types";
@@ -147,8 +148,8 @@ export default async function Home({
                           fill
                           sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
                           className="object-cover"
-                          // See HeroCrossfade.tsx for why R2 images are unoptimized.
-                          unoptimized
+                          // See lib/images.ts for why this is conditional.
+                          unoptimized={isR2DevUrl(cover.url)}
                         />
                       ) : (
                         <div className="flex h-full w-full items-center justify-center">

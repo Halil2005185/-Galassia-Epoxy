@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { isR2DevUrl } from "@/lib/images";
 import { productPageUrl, whatsappHref } from "@/lib/data";
 import type { Category, Product } from "@/lib/api/types";
 import type { Locale } from "@/lib/i18n/settings";
@@ -150,8 +151,8 @@ export default function ProductsBrowser({
                         fill
                         sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
                         className="object-cover"
-                        // See HeroCrossfade.tsx for why R2 images are unoptimized.
-                        unoptimized
+                        // See lib/images.ts for why this is conditional.
+                        unoptimized={isR2DevUrl(cover.url)}
                       />
                     ) : (
                       <div className="flex h-full w-full items-center justify-center">

@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import { getProductBySlug, getProducts } from "@/lib/api/products";
 import type { Category, Product } from "@/lib/api/types";
 import { productPageUrl, whatsappHref } from "@/lib/data";
+import { isR2DevUrl } from "@/lib/images";
 import { getTranslation } from "@/lib/i18n/server";
 import { isValidLocale, languages, type Locale } from "@/lib/i18n/settings";
 import { SITE_NAME, absoluteUrl, ogAlternateLocales, ogLocale, pageAlternates, truncateDescription } from "@/lib/seo";
@@ -157,8 +158,8 @@ export default async function ProductDetailPage({
                   fill
                   sizes="(min-width: 1024px) 58vw, 100vw"
                   priority
-                  // See HeroCrossfade.tsx for why R2 images are unoptimized.
-                  unoptimized
+                  // See lib/images.ts for why this is conditional.
+                  unoptimized={isR2DevUrl(mainImage.url)}
                   className="object-cover"
                 />
               ) : (
@@ -177,7 +178,7 @@ export default async function ProductDetailPage({
                       fill
                       sizes="(min-width: 1024px) 19vw, 33vw"
                       className="object-cover"
-                      unoptimized
+                      unoptimized={isR2DevUrl(image.url)}
                     />
                   </div>
                 ))}
@@ -286,7 +287,7 @@ export default async function ProductDetailPage({
                         fill
                         sizes="(min-width: 640px) 33vw, 100vw"
                         className="object-cover transition-transform duration-300 group-hover:scale-[1.02]"
-                        unoptimized
+                        unoptimized={isR2DevUrl(itemCover.url)}
                       />
                     ) : (
                       <div className="flex h-full w-full items-center justify-center">

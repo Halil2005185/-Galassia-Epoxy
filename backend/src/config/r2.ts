@@ -26,6 +26,12 @@ export const uploadFile = async (
       // Without this, R2 serves the object as application/octet-stream,
       // which browsers download instead of displaying inline.
       ContentType: contentType,
+      // Every key is a fresh `${Date.now()}-${filename}` — updates upload a
+      // new key and delete the old one rather than overwriting in place —
+      // so once written, an object at a given key never changes. Safe (and
+      // valuable) to cache aggressively at both the browser and any CDN/edge
+      // in front of R2, since no Cache-Control was being sent before this.
+      CacheControl: "public, max-age=31536000, immutable",
     })
   );
 
