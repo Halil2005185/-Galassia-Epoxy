@@ -1,24 +1,18 @@
 {
   "eyebrow": "Özel Danışmanlık",
   "title": "Atölyeyle İletişime Geçin",
-  "description": "Baş sanatçımıza ve ahşap teknisyenlerimize doğrudan ulaşın. Mekan eskizlerinizi, boya örneklerinizi veya kereste tercihlerinizi paylaşın; WhatsApp üzerinden size yanıt verelim.",
-  "nameLabel": "Ad Soyad",
-  "namePlaceholder": "Adınız ve soyadınız",
-  "interestLabel": "İlgi Alanı",
-  "interestPlaceholder": "örn. Nehir yemek masası, özel renk",
-  "notesLabel": "Notlar",
-  "notesPlaceholder": "Ölçüler, kereste tercihi, zaman planı…",
-  "sendWhatsapp": "WhatsApp'tan Gönder",
-  "directLineLabel": "Doğrudan Hat",
+  "description": "Baş sanatçımıza ve ahşap teknisyenlerimize WhatsApp veya sosyal medya kanallarımız üzerinden doğrudan ulaşın.",
+  "whatsappLabel": "WhatsApp",
+  "whatsappCta": "WhatsApp'tan Yazın",
+  "whatsappMessage": "Merhaba Galassia, özel bir danışmanlık talep etmek istiyorum.",
   "hours": "Pzt – Cmt, 10:00 – 18:00",
-  "studioLabel": "Atölye",
-  "studioValue": "@galassia.epoxydesign • Facebook",
+  "instagramLabel": "Instagram",
+  "instagramHandle": "@galassia_epoxydesign",
+  "facebookLabel": "Facebook",
+  "facebookHandle": "Galassia Epoxy Design",
+  "linktreeLabel": "Linktree",
+  "linktreeHandle": "Tüm bağlantılarımız tek yerde",
+  "visitCta": "Ziyaret Et",
   "responseTimeLabel": "Yanıt Süresi",
-  "responseTimeBody": "Zanaatkâr ekibimiz atölye çalışma saatleri içinde WhatsApp'ta genellikle 30 dakika içinde yanıt verir.",
-  "message": {
-    "intro": "Merhaba Galassia, özel bir danışmanlık talep etmek istiyorum.",
-    "name": "Ad Soyad: {{value}}",
-    "interest": "İlgi alanı: {{value}}",
-    "notes": "Notlar: {{value}}"
-  }
+  "responseTimeBody": "Zanaatkâr ekibimiz atölye çalışma saatleri içinde WhatsApp'ta genellikle 30 dakika içinde yanıt verir."
 }

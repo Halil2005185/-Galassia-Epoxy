@@ -1,7 +1,7 @@
 import Link from "next/link";
 import PlaceholderImage from "@/components/PlaceholderImage";
 import HeroCrossfade from "@/components/HeroCrossfade";
-import { collections, whatsappHref } from "@/lib/data";
+import { whatsappHref } from "@/lib/data";
 import { getProducts } from "@/lib/api/products";
 import type { Category, Product } from "@/lib/api/types";
 import { getTranslation } from "@/lib/i18n/server";
@@ -26,7 +26,6 @@ export default async function Home({
   const locale: Locale = rawLocale;
 
   const { t } = await getTranslation(locale, "home");
-  const { t: tCategories } = await getTranslation(locale, "categories");
   const { t: tActions } = await getTranslation(locale, "common");
 
   const stats = t("hero.stats", { returnObjects: true }) as Stat[];
@@ -94,53 +93,6 @@ export default async function Home({
         </div>
       </section>
 
-      {/* Curated Collections */}
-      <section className="border-t border-border">
-        <div className="mx-auto max-w-[1440px] px-5 py-16 md:px-16">
-          <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
-            <div>
-              <p className="label-caps text-brass">{t("collections.eyebrow")}</p>
-              <h2 className="mt-3 font-display text-3xl md:text-4xl">
-                {t("collections.title")}
-              </h2>
-            </div>
-            <p className="max-w-sm text-sm leading-6 text-graphite">
-              {t("collections.description")}
-            </p>
-          </div>
-
-          <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {collections.map((collection) => {
-              const item = tCategories(`items.${collection.slug}`, {
-                returnObjects: true,
-              }) as { title: string; series: string };
-              return (
-                <Link
-                  key={collection.slug}
-                  href={`/${locale}/categories/${collection.slug}`}
-                  className="group block border border-border bg-surface"
-                >
-                  <PlaceholderImage
-                    label={item.series}
-                    tone={collection.tone}
-                    className="aspect-[4/5] w-full transition-transform duration-300 group-hover:scale-[1.02]"
-                  />
-                  <div className="p-5">
-                    <h3 className="font-display text-lg leading-snug">
-                      {item.title}
-                    </h3>
-                    <span className="link-arrow label-caps mt-4">
-                      <span>{tActions("actions.viewCollection")}</span>
-                      <span>&rarr;</span>
-                    </span>
-                  </div>
-                </Link>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
       {/* Masterwork Creations */}
       {masterworks.length > 0 && (
         <section className="border-t border-border bg-surface">
@@ -185,7 +137,7 @@ export default async function Home({
                           {tActions("actions.viewDetails")}
                         </Link>
                         <a
-                          href={whatsappHref(t("masterworks.whatsappMessage", { title }))}
+                          href={whatsappHref(t("masterworks.whatsappMessage", { title }), cover?.url)}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="label-caps flex-1 bg-ink px-4 py-3 text-center text-surface"
@@ -204,33 +156,22 @@ export default async function Home({
 
       {/* Philosophy */}
       <section className="border-t border-border">
-        <div className="mx-auto grid max-w-[1440px] grid-cols-1 gap-10 px-5 py-16 md:px-16 lg:grid-cols-12 lg:items-center">
-          <div className="lg:col-span-6">
-            <p className="label-caps text-brass">{t("philosophy.eyebrow")}</p>
-            <h2 className="mt-3 font-display text-3xl md:text-4xl">
-              {t("philosophy.title")}
-            </h2>
-            <p className="mt-4 max-w-md text-sm leading-6 text-graphite">
-              {t("philosophy.description")}
-            </p>
-            <div className="mt-8 space-y-6">
-              {steps.map((step) => (
-                <div key={step.number} className="flex gap-4 border-t border-border pt-6">
-                  <span className="label-caps text-brass">{step.number}</span>
-                  <div>
-                    <h3 className="font-display text-lg">{step.title}</h3>
-                    <p className="mt-1 text-sm leading-6 text-graphite">{step.body}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-          <div className="lg:col-span-6">
-            <PlaceholderImage
-              label={t("philosophy.imageCaption")}
-              tone="walnut"
-              className="aspect-[4/3] w-full"
-            />
+        <div className="mx-auto max-w-[1440px] px-5 py-16 md:px-16">
+          <p className="label-caps text-brass">{t("philosophy.eyebrow")}</p>
+          <h2 className="mt-3 font-display text-3xl md:text-4xl">
+            {t("philosophy.title")}
+          </h2>
+          <p className="mt-4 max-w-md text-sm leading-6 text-graphite">
+            {t("philosophy.description")}
+          </p>
+          <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {steps.map((step) => (
+              <div key={step.number} className="border-t border-border pt-6">
+                <span className="label-caps text-brass">{step.number}</span>
+                <h3 className="mt-2 font-display text-lg">{step.title}</h3>
+                <p className="mt-1 text-sm leading-6 text-graphite">{step.body}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>

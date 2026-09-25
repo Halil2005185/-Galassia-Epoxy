@@ -132,7 +132,7 @@ export default async function ProductDetailPage({
 
             <div className="mt-6 flex flex-col gap-3">
               <a
-                href={whatsappHref(t("page.sendOrderMessage", { title }))}
+                href={whatsappHref(t("page.sendOrderMessage", { title }), mainImage?.url)}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-primary label-caps"
@@ -140,7 +140,7 @@ export default async function ProductDetailPage({
                 {t("page.sendOrder")}
               </a>
               <a
-                href={whatsappHref(t("page.requestCustomMessage", { title }))}
+                href={whatsappHref(t("page.requestCustomMessage", { title }), mainImage?.url)}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-secondary label-caps"

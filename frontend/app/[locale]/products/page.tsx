@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import ProductsBrowser from "@/components/ProductsBrowser";
 import { getProducts } from "@/lib/api/products";
-import type { Category, Product } from "@/lib/api/types";
+import type { Product } from "@/lib/api/types";
 import { whatsappHref } from "@/lib/data";
 import { getTranslation } from "@/lib/i18n/server";
 import { isValidLocale, languages, type Locale } from "@/lib/i18n/settings";
@@ -19,15 +20,6 @@ export async function generateMetadata({
   const lng: Locale = isValidLocale(locale) ? locale : "tr";
   const { t } = await getTranslation(lng, "products");
   return { title: `${t("page.title")} | Galassia Epoxy Design` };
-}
-
-function categoryLabel(category: Category | string, locale: Locale) {
-  if (typeof category === "string") return category;
-  return category.name[locale];
-}
-
-function excerpt(text: string, maxLength = 110) {
-  return text.length > maxLength ? `${text.slice(0, maxLength).trimEnd()}…` : text;
 }
 
 export default async function ProductsPage({
@@ -52,14 +44,6 @@ export default async function ProductsPage({
     loadError = true;
   }
 
-  const categoryTabs = Array.from(
-    new Map(
-      products
-        .filter((p): p is Product & { category: Category } => typeof p.category !== "string")
-        .map((p) => [p.category._id, p.category.name[locale]])
-    ).values()
-  );
-
   return (
     <>
       <section className="mx-auto max-w-[1440px] px-5 pb-10 pt-12 md:px-16 md:pt-16">
@@ -80,95 +64,23 @@ export default async function ProductsPage({
         </div>
       </section>
 
-      <section className="mx-auto max-w-[1440px] px-5 md:px-16">
-        <div className="flex flex-col gap-4 border border-border p-5 lg:flex-row lg:items-center lg:justify-between">
-          <div className="flex flex-1 items-center gap-3 border border-border px-4 py-3">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-graphite">
-              <circle cx="11" cy="11" r="7" />
-              <path d="m20 20-3.5-3.5" />
-            </svg>
-            <span className="text-sm text-graphite">{t("page.searchPlaceholder")}</span>
-          </div>
-          <div className="flex flex-wrap items-center gap-2">
-            <span className="label-caps text-graphite">{t("page.substratesLabel")}</span>
-            {substrates.map((s) => (
-              <span key={s} className="label-caps border border-border px-3 py-2">
-                {s}
-              </span>
-            ))}
-          </div>
-        </div>
-
-        {products.length > 0 && (
-          <div className="mt-4 flex flex-wrap gap-6 border-b border-border pb-4 text-sm">
-            <span className="label-caps border-b-2 border-ink pb-2 text-ink">
-              {t("page.allCollections")} ({products.length})
-            </span>
-            {categoryTabs.map((name) => (
-              <span key={name} className="label-caps pb-2 text-graphite">
-                {name}
-              </span>
-            ))}
-          </div>
-        )}
-      </section>
-
-      <section className="mx-auto max-w-[1440px] px-5 py-10 md:px-16">
-        {loadError ? (
-          <p className="border border-border bg-surface p-8 text-center text-sm text-graphite">
-            {t("page.loadError")}
-          </p>
-        ) : products.length === 0 ? (
-          <p className="border border-border bg-surface p-8 text-center text-sm text-graphite">
-            {t("page.empty")}
-          </p>
-        ) : (
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {products.map((product) => {
-              const title = product.name[locale];
-              const cover = product.images[0];
-              return (
-                <div key={product._id} className="border border-border bg-surface">
-                  <div className="relative aspect-[4/5] w-full overflow-hidden bg-canvas">
-                    {cover ? (
-                      // eslint-disable-next-line @next/next/no-img-element
-                      <img src={cover.url} alt={title} className="h-full w-full object-cover" />
-                    ) : (
-                      <div className="flex h-full w-full items-center justify-center">
-                        <span className="label-caps text-graphite">{title}</span>
-                      </div>
-                    )}
-                  </div>
-                  <div className="p-5">
-                    <p className="label-caps text-brass">{categoryLabel(product.category, locale)}</p>
-                    <h3 className="mt-2 font-display text-lg leading-snug">{title}</h3>
-                    <p className="mt-2 text-sm leading-6 text-graphite">
-                      {excerpt(product.description[locale])}
-                    </p>
-                    <div className="mt-5 flex flex-col gap-3 sm:flex-row">
-                      <Link
-                        href={`/${locale}/products/${product.slug}`}
-                        className="link-arrow label-caps"
-                      >
-                        <span>{tActions("actions.viewPiece")}</span>
-                        <span>&rarr;</span>
-                      </Link>
-                      <a
-                        href={whatsappHref(t("page.cardWhatsappMessage", { title }))}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="label-caps ml-auto bg-ink px-4 py-2 text-surface"
-                      >
-                        {tActions("actions.whatsappInquire")}
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        )}
-      </section>
+      <ProductsBrowser
+        locale={locale}
+        products={products}
+        loadError={loadError}
+        t={{
+          searchPlaceholder: t("page.searchPlaceholder"),
+          substratesLabel: t("page.substratesLabel"),
+          substrates,
+          allCollections: t("page.allCollections"),
+          loadError: t("page.loadError"),
+          empty: t("page.empty"),
+          noResults: t("page.noResults"),
+          viewPiece: tActions("actions.viewPiece"),
+          whatsappInquire: tActions("actions.whatsappInquire"),
+          cardWhatsappMessage: t("page.cardWhatsappMessage", { title: "{{title}}" }),
+        }}
+      />
 
       <section className="mx-auto max-w-[1440px] px-5 pb-20 md:px-16">
         <div className="flex flex-col items-start justify-between gap-8 bg-ink p-10 text-surface md:flex-row md:items-center md:p-16">

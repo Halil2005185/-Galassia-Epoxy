@@ -83,7 +83,7 @@ export default function Dashboard({ onLogout }: { onLogout: () => void }) {
       <div className="flex flex-1 flex-col">
         <header className="flex items-center justify-between border-b border-border bg-surface px-5 py-4 sm:px-8">
           <div>
-            <p className="label-caps text-brass">أتيليه الإدارة</p>
+            <p className="label-caps text-brass">غالاسيا للإدارة</p>
             <h1 className="mt-1 font-display text-xl">{VIEW_TITLES[active]}</h1>
           </div>
           <button

@@ -1,24 +1,18 @@
 {
   "eyebrow": "خدمة العملاء الخاصة",
-  "title": "تواصل مع الأتيليه",
-  "description": "تواصل مباشرة مع فنانا الرئيسي وفنيي الأخشاب لدينا. شارك رسوماتك المكانية أو عينات الألوان أو تفضيلات الخشب وسنرد عليك عبر واتساب.",
-  "nameLabel": "الاسم",
-  "namePlaceholder": "اسمك الكامل",
-  "interestLabel": "مجال الاهتمام",
-  "interestPlaceholder": "مثال: طاولة طعام نهرية، لون مخصص",
-  "notesLabel": "ملاحظات",
-  "notesPlaceholder": "الأبعاد، تفضيل الخشب، الجدول الزمني…",
-  "sendWhatsapp": "أرسل عبر واتساب",
-  "directLineLabel": "خط مباشر",
+  "title": "تواصل مع غالاسيا",
+  "description": "تواصل مباشرة مع فنانا الرئيسي وفنيي الأخشاب لدينا عبر واتساب أو قنواتنا على مواقع التواصل الاجتماعي.",
+  "whatsappLabel": "واتساب",
+  "whatsappCta": "راسلنا عبر واتساب",
+  "whatsappMessage": "مرحبًا غالاسيا، أرغب في طلب استشارة خاصة.",
   "hours": "الإثنين – السبت، 10:00 – 18:00",
-  "studioLabel": "الأتيليه",
-  "studioValue": "@galassia.epoxydesign • فيسبوك",
+  "instagramLabel": "إنستغرام",
+  "instagramHandle": "@galassia_epoxydesign",
+  "facebookLabel": "فيسبوك",
+  "facebookHandle": "Galassia Epoxy Design",
+  "linktreeLabel": "لينكتري",
+  "linktreeHandle": "جميع روابطنا في مكان واحد",
+  "visitCta": "زيارة",
   "responseTimeLabel": "وقت الاستجابة",
-  "responseTimeBody": "عادة ما يرد فريق الحرفيين خلال 30 دقيقة عبر واتساب خلال ساعات عمل الأتيليه.",
-  "message": {
-    "intro": "مرحبًا غالاسيا، أرغب في طلب استشارة خاصة.",
-    "name": "الاسم: {{value}}",
-    "interest": "مجال الاهتمام: {{value}}",
-    "notes": "ملاحظات: {{value}}"
-  }
+  "responseTimeBody": "عادة ما يرد فريق الحرفيين خلال 30 دقيقة عبر واتساب خلال ساعات عمل غالاسيا."
 }

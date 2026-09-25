@@ -35,7 +35,7 @@ export default function Login({ onLogin }: { onLogin: () => void }) {
           <span className="flex h-11 w-11 items-center justify-center border border-ink text-lg font-display">
             G
           </span>
-          <p className="label-caps mt-4 text-brass">أتيليه الإدارة</p>
+          <p className="label-caps mt-4 text-brass">غالاسيا للإدارة</p>
           <h1 className="mt-2 font-display text-2xl">تسجيل الدخول</h1>
           <p className="mt-2 text-sm text-graphite">
             قم بإدارة كتالوج غالاسيا للإيبوكسي.

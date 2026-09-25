@@ -1,6 +1,4 @@
-import Link from "next/link";
 import { notFound } from "next/navigation";
-import PlaceholderImage from "@/components/PlaceholderImage";
 import { whatsappHref } from "@/lib/data";
 import { getTranslation } from "@/lib/i18n/server";
 import { isValidLocale, languages, type Locale } from "@/lib/i18n/settings";
@@ -38,17 +36,10 @@ export default async function AboutPage({
     <>
       <section className="mx-auto max-w-[1440px] px-5 pb-10 pt-12 md:px-16 md:pt-16">
         <p className="label-caps text-brass">{t("eyebrow")}</p>
-        <div className="mt-4 grid grid-cols-1 gap-10 lg:grid-cols-12 lg:items-end">
-          <div className="lg:col-span-6">
-            <h1 className="font-display text-4xl md:text-5xl">{t("title")}</h1>
-            <p className="mt-6 max-w-md text-sm leading-6 text-graphite">
-              {t("description")}
-            </p>
-          </div>
-          <div className="lg:col-span-6">
-            <PlaceholderImage label={t("imageCaption")} tone="walnut" className="aspect-[4/3] w-full" />
-          </div>
-        </div>
+        <h1 className="mt-4 font-display text-4xl md:text-5xl">{t("title")}</h1>
+        <p className="mt-6 max-w-2xl text-sm leading-6 text-graphite">
+          {t("description")}
+        </p>
       </section>
 
       <section className="border-t border-border">
