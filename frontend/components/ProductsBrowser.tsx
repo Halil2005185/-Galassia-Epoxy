@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { productPageUrl, whatsappHref } from "@/lib/data";
 import type { Category, Product } from "@/lib/api/types";
@@ -140,11 +141,18 @@ export default function ProductsBrowser({
               const title = product.name[locale];
               const cover = product.images[0];
               return (
-                <div key={product._id} className="border border-border bg-surface">
+                <article key={product._id} className="border border-border bg-surface">
                   <div className="relative aspect-[4/5] w-full overflow-hidden bg-canvas">
                     {cover ? (
-                      // eslint-disable-next-line @next/next/no-img-element
-                      <img src={cover.url} alt={title} className="h-full w-full object-cover" />
+                      <Image
+                        src={cover.url}
+                        alt={title}
+                        fill
+                        sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                        className="object-cover"
+                        // See HeroCrossfade.tsx for why R2 images are unoptimized.
+                        unoptimized
+                      />
                     ) : (
                       <div className="flex h-full w-full items-center justify-center">
                         <span className="label-caps text-graphite">{title}</span>
@@ -175,7 +183,7 @@ export default function ProductsBrowser({
                       </a>
                     </div>
                   </div>
-                </div>
+                </article>
               );
             })}
           </div>

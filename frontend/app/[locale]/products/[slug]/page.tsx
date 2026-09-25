@@ -1,3 +1,5 @@
+import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getProductBySlug, getProducts } from "@/lib/api/products";
@@ -5,6 +7,7 @@ import type { Category, Product } from "@/lib/api/types";
 import { productPageUrl, whatsappHref } from "@/lib/data";
 import { getTranslation } from "@/lib/i18n/server";
 import { isValidLocale, languages, type Locale } from "@/lib/i18n/settings";
+import { SITE_NAME, absoluteUrl, ogAlternateLocales, ogLocale, pageAlternates, truncateDescription } from "@/lib/seo";
 
 export function generateStaticParams() {
   return languages.map((locale) => ({ locale }));
@@ -18,12 +21,36 @@ export async function generateMetadata({
   params,
 }: {
   params: Promise<{ locale: string; slug: string }>;
-}) {
+}): Promise<Metadata> {
   const { locale, slug } = await params;
   const lng: Locale = isValidLocale(locale) ? locale : "tr";
   const product = await getProductBySlug(slug);
-  if (!product) return { title: "Piece Not Found" };
-  return { title: `${product.name[lng]} | Galassia Epoxy Design` };
+
+  if (!product) {
+    return { title: "Piece Not Found", robots: { index: false, follow: true } };
+  }
+
+  const title = product.name[lng];
+  const description = truncateDescription(product.description[lng]);
+  const images = product.images.map((image) => ({ url: image.url, alt: title }));
+
+  return {
+    title,
+    description,
+    alternates: pageAlternates(lng, `/products/${slug}`),
+    // A page-level openGraph object fully replaces the layout's (it isn't
+    // deep-merged), so the fields the layout would normally supply have to
+    // be repeated here alongside the real product photo.
+    openGraph: {
+      title,
+      description,
+      type: "website",
+      siteName: SITE_NAME,
+      locale: ogLocale(lng),
+      alternateLocale: ogAlternateLocales(lng),
+      images: images.length > 0 ? images : undefined,
+    },
+  };
 }
 
 export default async function ProductDetailPage({
@@ -63,8 +90,46 @@ export default async function ProductDetailPage({
     related = [];
   }
 
+  const productJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: title,
+    description,
+    sku: product._id,
+    image: product.images.map((image) => image.url),
+    category: category?.name[locale],
+    brand: { "@type": "Brand", name: SITE_NAME },
+    url: productPageUrl(locale, product.slug),
+  };
+
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: tCommon("breadcrumbHome"), item: absoluteUrl(`/${locale}`) },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: t("page.breadcrumbProducts"),
+        item: absoluteUrl(`/${locale}/products`),
+      },
+      { "@type": "ListItem", position: 3, name: title, item: productPageUrl(locale, product.slug) },
+    ],
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        // eslint-disable-next-line react/no-danger
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(productJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        // eslint-disable-next-line react/no-danger
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
+
       <section className="mx-auto max-w-[1440px] px-5 pt-6 md:px-16">
         <nav className="text-xs text-graphite">
           <Link href={`/${locale}`} className="hover:text-ink">{tCommon("breadcrumbHome")}</Link>
@@ -86,8 +151,16 @@ export default async function ProductDetailPage({
           <div className="lg:col-span-7">
             <div className="relative aspect-[4/3] w-full overflow-hidden bg-canvas">
               {mainImage ? (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img src={mainImage.url} alt={title} className="h-full w-full object-cover" />
+                <Image
+                  src={mainImage.url}
+                  alt={title}
+                  fill
+                  sizes="(min-width: 1024px) 58vw, 100vw"
+                  priority
+                  // See HeroCrossfade.tsx for why R2 images are unoptimized.
+                  unoptimized
+                  className="object-cover"
+                />
               ) : (
                 <div className="flex h-full w-full items-center justify-center">
                   <span className="label-caps text-graphite">{title}</span>
@@ -97,9 +170,15 @@ export default async function ProductDetailPage({
             {restImages.length > 0 && (
               <div className="mt-4 grid grid-cols-3 gap-4">
                 {restImages.slice(0, 3).map((image) => (
-                  <div key={image.key} className="aspect-square w-full overflow-hidden bg-canvas">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={image.url} alt={title} className="h-full w-full object-cover" />
+                  <div key={image.key} className="relative aspect-square w-full overflow-hidden bg-canvas">
+                    <Image
+                      src={image.url}
+                      alt={title}
+                      fill
+                      sizes="(min-width: 1024px) 19vw, 33vw"
+                      className="object-cover"
+                      unoptimized
+                    />
                   </div>
                 ))}
               </div>
@@ -201,11 +280,13 @@ export default async function ProductDetailPage({
                 <Link key={item._id} href={`/${locale}/products/${item.slug}`} className="group block border border-border">
                   <div className="relative aspect-[4/3] w-full overflow-hidden bg-canvas">
                     {itemCover ? (
-                      // eslint-disable-next-line @next/next/no-img-element
-                      <img
+                      <Image
                         src={itemCover.url}
                         alt={item.name[locale]}
-                        className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.02]"
+                        fill
+                        sizes="(min-width: 640px) 33vw, 100vw"
+                        className="object-cover transition-transform duration-300 group-hover:scale-[1.02]"
+                        unoptimized
                       />
                     ) : (
                       <div className="flex h-full w-full items-center justify-center">

@@ -4,8 +4,10 @@ import { Playfair_Display, Plus_Jakarta_Sans, Amiri, Cairo } from "next/font/goo
 import "../globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { siteUrl } from "@/lib/data";
 import { getTranslation } from "@/lib/i18n/server";
 import { isRtl, isValidLocale, languages, type Locale } from "@/lib/i18n/settings";
+import { SITE_NAME, absoluteUrl, ogLocale } from "@/lib/seo";
 
 const playfair = Playfair_Display({
   variable: "--font-playfair",
@@ -45,9 +47,29 @@ export async function generateMetadata({
   const { locale } = await params;
   const lng: Locale = isValidLocale(locale) ? locale : "tr";
   const { t } = await getTranslation(lng, "home");
+
   return {
-    title: "Galassia Epoxy Design | Atelier",
+    metadataBase: new URL(siteUrl()),
+    title: {
+      default: `${SITE_NAME} | ${t("hero.title")}`,
+      template: `%s | ${SITE_NAME}`,
+    },
     description: t("hero.subtitle"),
+    applicationName: SITE_NAME,
+    authors: [{ name: SITE_NAME }],
+    openGraph: {
+      siteName: SITE_NAME,
+      type: "website",
+      locale: ogLocale(lng),
+      alternateLocale: languages.filter((l) => l !== lng).map(ogLocale),
+    },
+    twitter: {
+      card: "summary_large_image",
+    },
+    robots: {
+      index: true,
+      follow: true,
+    },
   };
 }
 
@@ -81,6 +103,23 @@ export default async function LocaleLayout({
     language: t("language"),
   };
 
+  const organizationJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: SITE_NAME,
+    url: absoluteUrl(`/${locale}`),
+    sameAs: [
+      "https://www.instagram.com/galassia_epoxydesign",
+      "https://www.facebook.com/profile.php?id=61556989703838",
+      "https://linktr.ee/Galassia_Epoxy_Design",
+    ],
+    contactPoint: {
+      "@type": "ContactPoint",
+      telephone: "+90-535-928-58-05",
+      contactType: "customer service",
+    },
+  };
+
   return (
     <html
       lang={locale}
@@ -88,6 +127,11 @@ export default async function LocaleLayout({
       className={`${playfair.variable} ${jakarta.variable} ${amiri.variable} ${cairo.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-canvas text-ink font-body">
+        <script
+          type="application/ld+json"
+          // eslint-disable-next-line react/no-danger
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
+        />
         <Header locale={locale} t={headerText} />
         <main className="flex-1">{children}</main>
         <Footer locale={locale} />

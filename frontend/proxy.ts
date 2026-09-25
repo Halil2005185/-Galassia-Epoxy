@@ -17,10 +17,17 @@ function detectLocaleFromHeader(header: string | null): string {
 export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  const hasLocale = languages.some(
+  const matchedLocale = languages.find(
     (locale) => pathname === `/${locale}` || pathname.startsWith(`/${locale}/`)
   );
-  if (hasLocale) return NextResponse.next();
+  if (matchedLocale) {
+    // not-found.tsx doesn't receive the [locale] route param, so it can't
+    // otherwise tell which locale a 404 happened under — expose it via a
+    // request header so the 404 page can render in the right language.
+    const requestHeaders = new Headers(request.headers);
+    requestHeaders.set("x-locale", matchedLocale);
+    return NextResponse.next({ request: { headers: requestHeaders } });
+  }
 
   if (/\.[^/]+$/.test(pathname)) return NextResponse.next();
 

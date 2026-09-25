@@ -1,3 +1,5 @@
+import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import PlaceholderImage from "@/components/PlaceholderImage";
 import HeroCrossfade from "@/components/HeroCrossfade";
@@ -5,7 +7,8 @@ import { productPageUrl, whatsappHref } from "@/lib/data";
 import { getProducts } from "@/lib/api/products";
 import type { Category, Product } from "@/lib/api/types";
 import { getTranslation } from "@/lib/i18n/server";
-import { isValidLocale, type Locale } from "@/lib/i18n/settings";
+import { isValidLocale, languages, type Locale } from "@/lib/i18n/settings";
+import { SITE_NAME, absoluteUrl, ogAlternateLocales, ogLocale, pageAlternates } from "@/lib/seo";
 import { notFound } from "next/navigation";
 
 type Stat = { value: string; label: string };
@@ -14,6 +17,31 @@ type Step = { number: string; title: string; body: string };
 function categoryLabel(category: Category | string, locale: Locale) {
   if (typeof category === "string") return category;
   return category.name[locale];
+}
+
+export function generateStaticParams() {
+  return languages.map((locale) => ({ locale }));
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const lng: Locale = isValidLocale(locale) ? locale : "tr";
+
+  return {
+    alternates: pageAlternates(lng, ""),
+    // A page-level openGraph object fully replaces the layout's rather than
+    // merging, so siteName/locale have to be repeated here too.
+    openGraph: {
+      url: absoluteUrl(`/${lng}`),
+      siteName: SITE_NAME,
+      locale: ogLocale(lng),
+      alternateLocale: ogAlternateLocales(lng),
+    },
+  };
 }
 
 export default async function Home({
@@ -110,11 +138,18 @@ export default async function Home({
                 const title = product.name[locale];
                 const cover = product.images[0];
                 return (
-                  <div key={product._id} className="border border-border">
+                  <article key={product._id} className="border border-border">
                     <div className="relative aspect-[4/5] w-full overflow-hidden bg-canvas">
                       {cover ? (
-                        // eslint-disable-next-line @next/next/no-img-element
-                        <img src={cover.url} alt={title} className="h-full w-full object-cover" />
+                        <Image
+                          src={cover.url}
+                          alt={title}
+                          fill
+                          sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                          className="object-cover"
+                          // See HeroCrossfade.tsx for why R2 images are unoptimized.
+                          unoptimized
+                        />
                       ) : (
                         <div className="flex h-full w-full items-center justify-center">
                           <span className="label-caps text-graphite">{title}</span>
@@ -146,7 +181,7 @@ export default async function Home({
                         </a>
                       </div>
                     </div>
-                  </div>
+                  </article>
                 );
               })}
             </div>

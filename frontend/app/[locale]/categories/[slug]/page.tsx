@@ -1,9 +1,11 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import PlaceholderImage from "@/components/PlaceholderImage";
 import { collections, getCollectionMeta, products, whatsappHref } from "@/lib/data";
 import { getTranslation } from "@/lib/i18n/server";
 import { isValidLocale, languages, type Locale } from "@/lib/i18n/settings";
+import { absoluteUrl, pageAlternates, truncateDescription } from "@/lib/seo";
 
 export function generateStaticParams() {
   return languages.flatMap((locale) =>
@@ -27,14 +29,21 @@ export async function generateMetadata({
   params,
 }: {
   params: Promise<{ locale: string; slug: string }>;
-}) {
+}): Promise<Metadata> {
   const { locale, slug } = await params;
   const lng: Locale = isValidLocale(locale) ? locale : "tr";
   const { t } = await getTranslation(lng, "categories");
   const meta = getCollectionMeta(slug);
-  if (!meta) return { title: "Collection Not Found" };
+  if (!meta) return { title: "Collection Not Found", robots: { index: false, follow: true } };
+
   const item = t(`items.${slug}`, { returnObjects: true }) as CollectionItem;
-  return { title: `${item.title} | Galassia Epoxy Design` };
+  const description = truncateDescription(item.description);
+
+  return {
+    title: item.title,
+    description,
+    alternates: pageAlternates(lng, `/categories/${slug}`),
+  };
 }
 
 export default async function CategoryDetailPage({
@@ -55,8 +64,29 @@ export default async function CategoryDetailPage({
   const item = t(`items.${slug}`, { returnObjects: true }) as CollectionItem;
   const pieces = products.filter((p) => p.categorySlug === slug);
 
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: tCommon("breadcrumbHome"), item: absoluteUrl(`/${locale}`) },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: t("page.breadcrumbCategories"),
+        item: absoluteUrl(`/${locale}/categories`),
+      },
+      { "@type": "ListItem", position: 3, name: item.title, item: absoluteUrl(`/${locale}/categories/${slug}`) },
+    ],
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        // eslint-disable-next-line react/no-danger
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
+
       <section className="mx-auto max-w-[1440px] px-5 pt-6 md:px-16">
         <nav className="text-xs text-graphite">
           <Link href={`/${locale}`} className="hover:text-ink">{tCommon("breadcrumbHome")}</Link>

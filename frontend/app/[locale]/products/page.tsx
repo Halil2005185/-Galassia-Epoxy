@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import ProductsBrowser from "@/components/ProductsBrowser";
@@ -6,6 +7,7 @@ import type { Product } from "@/lib/api/types";
 import { whatsappHref } from "@/lib/data";
 import { getTranslation } from "@/lib/i18n/server";
 import { isValidLocale, languages, type Locale } from "@/lib/i18n/settings";
+import { pageAlternates, truncateDescription } from "@/lib/seo";
 
 export function generateStaticParams() {
   return languages.map((locale) => ({ locale }));
@@ -15,11 +17,18 @@ export async function generateMetadata({
   params,
 }: {
   params: Promise<{ locale: string }>;
-}) {
+}): Promise<Metadata> {
   const { locale } = await params;
   const lng: Locale = isValidLocale(locale) ? locale : "tr";
   const { t } = await getTranslation(lng, "products");
-  return { title: `${t("page.title")} | Galassia Epoxy Design` };
+  const title = t("page.title");
+  const description = truncateDescription(t("page.description"));
+
+  return {
+    title,
+    description,
+    alternates: pageAlternates(lng, "/products"),
+  };
 }
 
 export default async function ProductsPage({

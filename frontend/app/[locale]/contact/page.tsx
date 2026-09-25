@@ -1,7 +1,9 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { whatsappHref } from "@/lib/data";
 import { getTranslation } from "@/lib/i18n/server";
 import { isValidLocale, languages, type Locale } from "@/lib/i18n/settings";
+import { pageAlternates, truncateDescription } from "@/lib/seo";
 
 const INSTAGRAM_URL = "https://www.instagram.com/galassia_epoxydesign";
 const FACEBOOK_URL = "https://www.facebook.com/profile.php?id=61556989703838";
@@ -15,11 +17,18 @@ export async function generateMetadata({
   params,
 }: {
   params: Promise<{ locale: string }>;
-}) {
+}): Promise<Metadata> {
   const { locale } = await params;
   const lng: Locale = isValidLocale(locale) ? locale : "tr";
   const { t } = await getTranslation(lng, "contact");
-  return { title: `${t("title")} | Galassia Epoxy Design` };
+  const title = t("title");
+  const description = truncateDescription(t("description"));
+
+  return {
+    title,
+    description,
+    alternates: pageAlternates(lng, "/contact"),
+  };
 }
 
 export default async function ContactPage({

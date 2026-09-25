@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useState } from "react";
 
 const DWELL_MS = 5000;
@@ -26,15 +27,22 @@ export default function HeroCrossfade({
   return (
     <div className="relative aspect-[4/3] w-full overflow-hidden bg-canvas">
       {images.map((src, i) => (
-        // eslint-disable-next-line @next/next/no-img-element
-        <img
+        <Image
           key={src}
           src={src}
           alt={alt}
-          className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-[1200ms] ease-in-out ${
+          fill
+          sizes="(min-width: 1024px) 58vw, 100vw"
+          priority={i === 0}
+          // R2's public dev URL (pub-*.r2.dev) has been unreliable to reach
+          // from server-side fetches (used by Next's image optimizer) even
+          // though browsers load it directly without issue — unoptimized
+          // skips the server-side resize/proxy step so the browser fetches
+          // the original URL itself, same as it did before this was next/image.
+          unoptimized
+          className={`object-cover transition-opacity duration-[1200ms] ease-in-out ${
             i === index ? "opacity-100" : "opacity-0"
-          }`
-        }
+          }`}
         />
       ))}
     </div>
