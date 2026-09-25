@@ -2,6 +2,7 @@ import express from "express";
 import { AddProducts, DeleteProducts, GetProductBySlug, GetProducts, UpdateProducts } from "../controllers/productsController.js";
 import upload from "../middleware/upload.js";
 import requireAuth from "../middleware/auth.js";
+import validateObjectId from "../middleware/validateObjectId.js";
 
 const route = express.Router();
 
@@ -15,9 +16,9 @@ route.get("/slug/:slug", GetProductBySlug);
 route.post("/add-product", requireAuth, upload.array("images", 5), AddProducts);
 
 // api/products/update-product/:id (Update a product by ID) — admin only
-route.put("/update-product/:id", requireAuth, upload.array("images", 5), UpdateProducts);
+route.put("/update-product/:id", requireAuth, validateObjectId("id"), upload.array("images", 5), UpdateProducts);
 
 // api/products/delete-product/:id (Delete a product by ID) — admin only
-route.delete("/delete-product/:id", requireAuth, DeleteProducts);
+route.delete("/delete-product/:id", requireAuth, validateObjectId("id"), DeleteProducts);
 
 export default route; 

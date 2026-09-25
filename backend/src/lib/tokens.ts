@@ -20,18 +20,22 @@ export const REFRESH_TOKEN_MAX_AGE_MS = REFRESH_DAYS * 24 * 60 * 60 * 1000;
 export type AccessTokenPayload = { adminId: string };
 export type RefreshTokenPayload = { adminId: string; tokenVersion: number };
 
+const JWT_ALGORITHM = "HS256";
+
 export function signAccessToken(payload: AccessTokenPayload): string {
-  return jwt.sign(payload, ACCESS_SECRET, { expiresIn: `${ACCESS_MINUTES}m` });
+  return jwt.sign(payload, ACCESS_SECRET, { expiresIn: `${ACCESS_MINUTES}m`, algorithm: JWT_ALGORITHM });
 }
 
 export function signRefreshToken(payload: RefreshTokenPayload): string {
-  return jwt.sign(payload, REFRESH_SECRET, { expiresIn: `${REFRESH_DAYS}d` });
+  return jwt.sign(payload, REFRESH_SECRET, { expiresIn: `${REFRESH_DAYS}d`, algorithm: JWT_ALGORITHM });
 }
 
 export function verifyAccessToken(token: string): AccessTokenPayload {
-  return jwt.verify(token, ACCESS_SECRET) as AccessTokenPayload;
+  // Pinning the algorithm prevents an algorithm-confusion attack (e.g. a
+  // token forged with "none" or a mismatched algorithm being accepted).
+  return jwt.verify(token, ACCESS_SECRET, { algorithms: [JWT_ALGORITHM] }) as AccessTokenPayload;
 }
 
 export function verifyRefreshToken(token: string): RefreshTokenPayload {
-  return jwt.verify(token, REFRESH_SECRET) as RefreshTokenPayload;
+  return jwt.verify(token, REFRESH_SECRET, { algorithms: [JWT_ALGORITHM] }) as RefreshTokenPayload;
 }

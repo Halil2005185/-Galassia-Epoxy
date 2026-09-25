@@ -1,5 +1,10 @@
 import mongoose from "mongoose";
 
+// Defense-in-depth against NoSQL operator injection: strips any top-level
+// `$`-prefixed keys from query filters built from user input (Joi already
+// rejects non-string/object-shaped values before they reach a query, but
+// this is a second layer that costs nothing).
+mongoose.set("sanitizeFilter", true);
 
 const connectDB = async () => {
     try {

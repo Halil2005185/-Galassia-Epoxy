@@ -33,8 +33,22 @@ function errorHandler(
         return;
     }
 
+    // Multer's own limit errors (file too large, too many files, unexpected
+    // field) and the custom file-type rejection below — both have safe,
+    // client-actionable messages, so they're exempt from the production
+    // error-masking below.
+    if (err.name === "MulterError" || err.name === "FileValidationError") {
+        res.status(400).json({ message: err.message });
+        return;
+    }
+
+    // Log the real error server-side, but never hand an unexpected error's
+    // message (which can contain internals — file paths, driver/SDK detail,
+    // connection strings) back to the client in production.
+    console.error(err);
+    const isProduction = process.env.NODE_ENV === "production";
     res.status(500).json({
-        message: err.message || "Internal Server Error",
+        message: isProduction || !err.message ? "Internal Server Error" : err.message,
     });
 }
 

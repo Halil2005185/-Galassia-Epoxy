@@ -1,5 +1,5 @@
 import type { Request, Response } from "express";
-import Product, { productValidationSchema, UpdateProductValidationSchema, type IProductImage } from "../model/Product.js";
+import Product, { productValidationSchema, productListQuerySchema, UpdateProductValidationSchema, type IProductImage } from "../model/Product.js";
 import asyncHandler from "express-async-handler";
 import type { } from "multer";
 import { deleteFile, uploadFile } from "../config/r2.js";
@@ -31,21 +31,28 @@ function parseLocalizedFields(body: Record<string, unknown>): string | null {
 
 export const GetProducts = asyncHandler(
     async (req: Request, res: Response) => {
-        const { page = 1, limit = 10 } = req.query;
+        const { error, value } = productListQuerySchema(req.query);
+
+        if (error) {
+            res.status(400).json({ message: error.details[0]?.message });
+            return;
+        }
+
+        const { page, limit } = value as { page: number; limit: number };
 
         const [products, total] = await Promise.all([
             Product.find()
                 .populate("category")
-                .skip((Number(page) - 1) * Number(limit))
-                .limit(Number(limit)),
+                .skip((page - 1) * limit)
+                .limit(limit),
             Product.countDocuments(),
         ]);
 
         res.status(200).json({
             products,
             total,
-            page: Number(page),
-            pages: Math.ceil(total / Number(limit)),
+            page,
+            pages: Math.ceil(total / limit),
         });
     }
 );

@@ -125,6 +125,16 @@ export function productValidationSchema(obj: validateProductSchema) {
 }
 
 
+export function productListQuerySchema(query: Record<string, unknown>) {
+  const Schema = Joi.object({
+    page: Joi.number().integer().min(1).default(1),
+    // The frontend's sitemap generator requests up to 200 in one page; 500
+    // leaves headroom for catalog growth while still bounding the query.
+    limit: Joi.number().integer().min(1).max(500).default(10),
+  });
+  return Schema.validate(query, { abortEarly: false });
+}
+
 export function UpdateProductValidationSchema(obj: Partial<UpdateProductSchema>) {
   const Schema = Joi.object({
     name: Joi.object({

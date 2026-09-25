@@ -1,6 +1,7 @@
 import express from "express";
 import { addCategory, deleteCategory, getAllCategories, getCategoryBySlug, updateCategory } from "../controllers/categoriesController.js";
 import requireAuth from "../middleware/auth.js";
+import validateObjectId from "../middleware/validateObjectId.js";
 
 const route = express.Router();
 
@@ -15,11 +16,11 @@ route.post("/add-category" , requireAuth, addCategory);
 
 
 // api/categories/update-category/:id (Update a category by ID) — admin only
-route.put("/update-category/:id" , requireAuth, updateCategory);
+route.put("/update-category/:id" , requireAuth, validateObjectId("id"), updateCategory);
 
 
 // api/categories/delete-category/:id (Delete a category by ID) — admin only
-route.delete("/delete-category/:id" , requireAuth, deleteCategory);
+route.delete("/delete-category/:id" , requireAuth, validateObjectId("id"), deleteCategory);
 
 
 export default route;
