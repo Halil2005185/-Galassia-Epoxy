@@ -8,9 +8,15 @@ import cookieParser from "cookie-parser";
 
 const app = express();
 
+// Comma-separated list, e.g. "https://admin.example.com,https://example.com".
+// Falls back to local dev origins when CORS_ORIGIN isn't set.
+const corsOrigins = process.env.CORS_ORIGIN
+    ? process.env.CORS_ORIGIN.split(",").map((origin) => origin.trim())
+    : ["http://localhost:5173", "http://localhost:5174", "http://localhost:3000"];
+
 app.use(
     cors({
-        origin: ["http://localhost:5173", "http://localhost:5174", "http://localhost:3000"],
+        origin: corsOrigins,
         credentials: true,
     }),
 );
