@@ -3,7 +3,76 @@ import type { ApiErrorBody } from "../types";
 
 const apiClient = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL,
+  // The refresh token lives in an HttpOnly cookie — it has to ride along on
+  // every request for the browser to send/receive it cross-origin.
+  withCredentials: true,
 });
+
+let accessToken: string | null = null;
+
+export function setAccessToken(token: string | null): void {
+  accessToken = token;
+}
+
+let sessionExpiredHandler: (() => void) | null = null;
+
+// Called once, from App, so the UI can drop back to the login screen when
+// a 401 survives a refresh attempt (refresh token itself expired/revoked).
+export function setOnSessionExpired(handler: (() => void) | null): void {
+  sessionExpiredHandler = handler;
+}
+
+apiClient.interceptors.request.use((config) => {
+  if (accessToken && !config.url?.includes("/auth/login")) {
+    config.headers.Authorization = `Bearer ${accessToken}`;
+  }
+  return config;
+});
+
+let refreshPromise: Promise<string | null> | null = null;
+
+function refreshAccessToken(): Promise<string | null> {
+  if (!refreshPromise) {
+    refreshPromise = apiClient
+      .post<{ accessToken: string }>("/auth/refresh")
+      .then(({ data }) => {
+        accessToken = data.accessToken;
+        return accessToken;
+      })
+      .catch(() => {
+        accessToken = null;
+        return null;
+      })
+      .finally(() => {
+        refreshPromise = null;
+      });
+  }
+  return refreshPromise;
+}
+
+apiClient.interceptors.response.use(
+  (response) => response,
+  async (error) => {
+    const originalRequest = error.config as (typeof error.config & { _retry?: boolean }) | undefined;
+    const isAuthEndpoint =
+      originalRequest?.url?.includes("/auth/login") || originalRequest?.url?.includes("/auth/refresh");
+
+    if (error.response?.status === 401 && originalRequest && !isAuthEndpoint && !originalRequest._retry) {
+      originalRequest._retry = true;
+      const newToken = await refreshAccessToken();
+
+      if (newToken) {
+        originalRequest.headers = originalRequest.headers ?? {};
+        originalRequest.headers.Authorization = `Bearer ${newToken}`;
+        return apiClient(originalRequest);
+      }
+
+      sessionExpiredHandler?.();
+    }
+
+    return Promise.reject(error);
+  }
+);
 
 // The backend (Joi / Mongoose / the AWS SDK) only ever replies in English.
 // This UI must never show English, so every backend message is translated
@@ -28,6 +97,13 @@ const KNOWN_MESSAGES: Record<string, string> = {
   "Slug must be lowercase, alphanumeric, and hyphen-separated.":
     "يجب أن يتكوّن الرابط المختصر من أحرف إنجليزية صغيرة وأرقام وشرطات فقط.",
   "Internal Server Error": "حدث خطأ في الخادم، حاول مرة أخرى.",
+  "Invalid email or password.": "البريد الإلكتروني أو كلمة المرور غير صحيحة.",
+  "Authentication required.": "يجب تسجيل الدخول أولاً.",
+  "Invalid or expired access token.": "انتهت صلاحية الجلسة، يرجى تسجيل الدخول مجددًا.",
+  "Refresh token missing.": "انتهت صلاحية الجلسة، يرجى تسجيل الدخول مجددًا.",
+  "Invalid or expired refresh token.": "انتهت صلاحية الجلسة، يرجى تسجيل الدخول مجددًا.",
+  "Refresh token has been invalidated.": "تم إنهاء الجلسة، يرجى تسجيل الدخول مجددًا.",
+  "Admin not found.": "الحساب غير موجود.",
 };
 
 const PATTERN_TRANSLATORS: { pattern: RegExp; translate: (match: RegExpMatchArray) => string }[] = [

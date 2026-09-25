@@ -129,21 +129,6 @@ export default function Dashboard({ onLogout }: { onLogout: () => void }) {
                   </p>
                 </div>
               </div>
-
-              <div className="mt-8 border border-border bg-surface p-8">
-                <p className="label-caps text-brass">ملاحظة</p>
-                <h2 className="mt-2 font-display text-xl">
-                  تسجيل الدخول لا يزال محليًا فقط
-                </h2>
-                <p className="mt-3 max-w-xl text-sm leading-6 text-graphite">
-                  الفئات والمنتجات متصلة الآن بالخادم الخلفي الحقيقي عبر{" "}
-                  <code className="border border-border bg-canvas px-1.5 py-0.5 text-xs" dir="ltr">
-                    axios
-                  </code>
-                  . أما تسجيل الدخول في هذه الصفحة فلا يزال محاكاة محلية فقط، لأن الخادم لا يحتوي
-                  بعد على نموذج مستخدم أو مسارات تسجيل دخول حقيقية.
-                </p>
-              </div>
             </div>
           )}
 

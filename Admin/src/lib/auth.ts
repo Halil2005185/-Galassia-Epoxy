@@ -1,24 +1,31 @@
-const TOKEN_KEY = "galassia_admin_token";
+import * as authApi from "../api/auth";
+import { setAccessToken } from "../api/client";
+
+export async function login(email: string, password: string): Promise<void> {
+  const { accessToken } = await authApi.login(email, password);
+  setAccessToken(accessToken);
+}
+
+export async function logout(): Promise<void> {
+  setAccessToken(null);
+  await authApi.logout().catch(() => {
+    // Cookie clearing already happened server-side if this fails for any
+    // reason other than "already logged out" — nothing more to do locally.
+  });
+}
 
 /**
- * Placeholder auth. The backend has no auth model or /api/auth routes yet,
- * so this only simulates a session locally. Swap the body of `login` for a
- * real API call once that endpoint exists — the function signature/contract
- * (resolve on success, throw on failure) is written to make that a drop-in
- * change for the Login page.
+ * Called once on app load. The refresh token lives in an HttpOnly cookie,
+ * so a valid session survives a page reload — this silently exchanges it
+ * for a fresh access token instead of asking for the password again.
  */
-export async function login(email: string, password: string): Promise<void> {
-  if (!email.trim() || !password.trim()) {
-    throw new Error("البريد الإلكتروني وكلمة المرور مطلوبان.");
+export async function restoreSession(): Promise<boolean> {
+  try {
+    const { accessToken } = await authApi.refresh();
+    setAccessToken(accessToken);
+    return true;
+  } catch {
+    setAccessToken(null);
+    return false;
   }
-  await new Promise((resolve) => setTimeout(resolve, 400));
-  localStorage.setItem(TOKEN_KEY, "mock-session-token");
-}
-
-export function logout(): void {
-  localStorage.removeItem(TOKEN_KEY);
-}
-
-export function isAuthenticated(): boolean {
-  return Boolean(localStorage.getItem(TOKEN_KEY));
 }

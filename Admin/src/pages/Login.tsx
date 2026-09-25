@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { login } from "../lib/auth";
+import { getApiErrorMessage } from "../api/client";
 
 export default function Login({ onLogin }: { onLogin: () => void }) {
   const [email, setEmail] = useState("");
@@ -9,13 +10,19 @@ export default function Login({ onLogin }: { onLogin: () => void }) {
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+
+    if (!email.trim() || !password.trim()) {
+      setError("البريد الإلكتروني وكلمة المرور مطلوبان.");
+      return;
+    }
+
     setError(null);
     setLoading(true);
     try {
       await login(email, password);
       onLogin();
     } catch (err) {
-      setError(err instanceof Error ? err.message : "تعذر تسجيل الدخول.");
+      setError(getApiErrorMessage(err, "تعذر تسجيل الدخول."));
     } finally {
       setLoading(false);
     }
