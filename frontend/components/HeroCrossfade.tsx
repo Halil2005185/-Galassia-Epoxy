@@ -27,11 +27,19 @@ export default function HeroCrossfade({
   );
   const [loadStatus, setLoadStatus] = useState<Record<number, LoadStatus>>({});
 
+  // Wait for the *current* slide to actually finish loading (or fail)
+  // before starting its dwell countdown — otherwise, on a slow connection,
+  // an image that took 3s to appear would only be visible for ~2s before
+  // the crossfade already moves on. Each slide now gets its full DWELL_MS
+  // once it's actually visible, not from whenever the component mounted.
+  const currentStatus = loadStatus[index];
+
   useEffect(() => {
     if (images.length <= 1) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (currentStatus !== "loaded" && currentStatus !== "failed") return;
 
-    const id = setInterval(() => {
+    const id = setTimeout(() => {
       setIndex((current) => {
         const next = (current + 1) % images.length;
         const preload = (next + 1) % images.length;
@@ -39,8 +47,8 @@ export default function HeroCrossfade({
         return next;
       });
     }, DWELL_MS);
-    return () => clearInterval(id);
-  }, [images.length]);
+    return () => clearTimeout(id);
+  }, [images.length, index, currentStatus]);
 
   // R2's public URL can be slow or fail outright — show a loading pulse
   // until the first slide has actually arrived, instead of empty canvas
