@@ -1,9 +1,8 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import Image from "next/image";
 import Link from "next/link";
-import { isR2DevUrl } from "@/lib/images";
+import ProductImage from "./ProductImage";
 import { productPageUrl, whatsappHref } from "@/lib/data";
 import type { Category, Product } from "@/lib/api/types";
 import type { Locale } from "@/lib/i18n/settings";
@@ -145,14 +144,11 @@ export default function ProductsBrowser({
                 <article key={product._id} className="border border-border bg-surface">
                   <div className="relative aspect-[4/5] w-full overflow-hidden bg-canvas">
                     {cover ? (
-                      <Image
+                      <ProductImage
                         src={cover.url}
                         alt={title}
-                        fill
                         sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
                         className="object-cover"
-                        // See lib/images.ts for why this is conditional.
-                        unoptimized={isR2DevUrl(cover.url)}
                       />
                     ) : (
                       <div className="flex h-full w-full items-center justify-center">

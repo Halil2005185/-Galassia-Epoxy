@@ -1,11 +1,10 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import ProductImage from "@/components/ProductImage";
 import { getProductBySlug, getProducts } from "@/lib/api/products";
 import type { Category, Product } from "@/lib/api/types";
 import { productPageUrl, whatsappHref } from "@/lib/data";
-import { isR2DevUrl } from "@/lib/images";
 import { getTranslation } from "@/lib/i18n/server";
 import { isValidLocale, languages, type Locale } from "@/lib/i18n/settings";
 import { SITE_NAME, absoluteUrl, ogAlternateLocales, ogLocale, pageAlternates, truncateDescription } from "@/lib/seo";
@@ -152,14 +151,11 @@ export default async function ProductDetailPage({
           <div className="lg:col-span-7">
             <div className="relative aspect-[4/3] w-full overflow-hidden bg-canvas">
               {mainImage ? (
-                <Image
+                <ProductImage
                   src={mainImage.url}
                   alt={title}
-                  fill
                   sizes="(min-width: 1024px) 58vw, 100vw"
                   priority
-                  // See lib/images.ts for why this is conditional.
-                  unoptimized={isR2DevUrl(mainImage.url)}
                   className="object-cover"
                 />
               ) : (
@@ -172,13 +168,11 @@ export default async function ProductDetailPage({
               <div className="mt-4 grid grid-cols-3 gap-4">
                 {restImages.slice(0, 3).map((image) => (
                   <div key={image.key} className="relative aspect-square w-full overflow-hidden bg-canvas">
-                    <Image
+                    <ProductImage
                       src={image.url}
                       alt={title}
-                      fill
                       sizes="(min-width: 1024px) 19vw, 33vw"
                       className="object-cover"
-                      unoptimized={isR2DevUrl(image.url)}
                     />
                   </div>
                 ))}
@@ -281,13 +275,11 @@ export default async function ProductDetailPage({
                 <Link key={item._id} href={`/${locale}/products/${item.slug}`} className="group block border border-border">
                   <div className="relative aspect-[4/3] w-full overflow-hidden bg-canvas">
                     {itemCover ? (
-                      <Image
+                      <ProductImage
                         src={itemCover.url}
                         alt={item.name[locale]}
-                        fill
                         sizes="(min-width: 640px) 33vw, 100vw"
                         className="object-cover transition-transform duration-300 group-hover:scale-[1.02]"
-                        unoptimized={isR2DevUrl(itemCover.url)}
                       />
                     ) : (
                       <div className="flex h-full w-full items-center justify-center">

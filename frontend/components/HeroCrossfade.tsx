@@ -6,6 +6,8 @@ import { isR2DevUrl } from "@/lib/images";
 
 const DWELL_MS = 5000;
 
+type LoadStatus = "loading" | "loaded" | "failed";
+
 export default function HeroCrossfade({
   images,
   alt,
@@ -23,6 +25,7 @@ export default function HeroCrossfade({
   const [revealed, setRevealed] = useState<Set<number>>(
     () => new Set(images.length > 1 ? [0, 1] : [0])
   );
+  const [loadStatus, setLoadStatus] = useState<Record<number, LoadStatus>>({});
 
   useEffect(() => {
     if (images.length <= 1) return;
@@ -39,8 +42,15 @@ export default function HeroCrossfade({
     return () => clearInterval(id);
   }, [images.length]);
 
+  // R2's public URL can be slow or fail outright — show a loading pulse
+  // until the first slide has actually arrived, instead of empty canvas
+  // with nothing happening. Once any slide has loaded, the crossfade's own
+  // opacity timing (unchanged from before) takes over as normal.
+  const anyLoaded = Object.values(loadStatus).some((status) => status === "loaded");
+
   return (
     <div className="relative aspect-[4/3] w-full overflow-hidden bg-canvas">
+      {!anyLoaded && <div className="absolute inset-0 animate-pulse bg-border" />}
       {images.map((src, i) =>
         revealed.has(i) ? (
           <Image
@@ -51,6 +61,8 @@ export default function HeroCrossfade({
             sizes="(min-width: 1024px) 58vw, 100vw"
             priority={i === 0}
             unoptimized={isR2DevUrl(src)}
+            onLoad={() => setLoadStatus((prev) => ({ ...prev, [i]: "loaded" }))}
+            onError={() => setLoadStatus((prev) => ({ ...prev, [i]: "failed" }))}
             className={`object-cover transition-opacity duration-[1200ms] ease-in-out ${
               i === index ? "opacity-100" : "opacity-0"
             }`}

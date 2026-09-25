@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import PlaceholderImage from "@/components/PlaceholderImage";
 import HeroCrossfade from "@/components/HeroCrossfade";
-import { isR2DevUrl } from "@/lib/images";
+import ProductImage from "@/components/ProductImage";
 import { productPageUrl, whatsappHref } from "@/lib/data";
 import { getProducts } from "@/lib/api/products";
 import type { Category, Product } from "@/lib/api/types";
@@ -142,14 +141,11 @@ export default async function Home({
                   <article key={product._id} className="border border-border">
                     <div className="relative aspect-[4/5] w-full overflow-hidden bg-canvas">
                       {cover ? (
-                        <Image
+                        <ProductImage
                           src={cover.url}
                           alt={title}
-                          fill
                           sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
                           className="object-cover"
-                          // See lib/images.ts for why this is conditional.
-                          unoptimized={isR2DevUrl(cover.url)}
                         />
                       ) : (
                         <div className="flex h-full w-full items-center justify-center">
